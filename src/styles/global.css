@@ -1,0 +1,26 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.icon-link::after {
+  @apply border-current border-b-2;
+  content: '';
+  position: absolute;
+  bottom: .275em;
+  width: -webkit-fill-available;
+  margin-right: .75em
+}
+
+body {
+	@apply font-body;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	@apply font-display;
+}
