@@ -17,10 +17,10 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        display: ['Yeseva One'],
-        serif: ['Yeseva One'],
-        sans: ['Open Sans'],
-        body: ['Open Sans'],
+        display: ['Philosopher'],
+        serif: ['Philosopher'],
+        sans: ['Mulish'],
+        body: ['Mulish'],
       },
       colors: {
         primary: {

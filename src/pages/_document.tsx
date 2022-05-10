@@ -8,12 +8,14 @@ class MyDocument extends Document {
     return (
       <Html lang={AppConfig.locale}>
         <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap"
-            rel="stylesheet"
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="1"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Mulish&family=Philosopher&display=swap"
             rel="stylesheet"
           />
         </Head>

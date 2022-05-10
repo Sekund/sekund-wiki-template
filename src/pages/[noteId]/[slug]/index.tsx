@@ -98,11 +98,11 @@ export function PostedNote({
       <div className="py-8 overflow-hidden bg-white-4 dark:bg-gray-4">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="mx-auto prose-lg max-w-prose">
-            <h2 className="mb-2">
-              <span className="block mt-2 text-2xl leading-8 capitalize text-gray-4 dark:text-white-4 sm:text-4xl">
+            <h1 className="mb-2">
+              <span className="block mt-2 leading-8 capitalize text-gray-4 dark:text-white-4">
                 {title}
               </span>
-            </h2>
+            </h1>
             <span className="text-md text-gray-4 dark:text-gray-1">
               <time className="text-gray-600 truncate" dateTime={datetime}>
                 {date}
