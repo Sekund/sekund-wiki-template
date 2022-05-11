@@ -4,19 +4,19 @@ import slugify from 'slugify';
 type DisqusProps = {
   id: string;
   title: string;
+  wikiDomain: string | undefined;
 };
 
-const DisqusComments = ({ id, title }: DisqusProps) => {
-  const { WIKI_DOMAIN } = process.env;
+const DisqusComments = ({ id, title, wikiDomain }: DisqusProps) => {
   console.log(
     'disqus comments',
     id,
     title,
-    `${WIKI_DOMAIN}/${id}/${slugify(title)}`
+    `${wikiDomain}/${id}/${slugify(title)}`
   );
   const disqusShortname = 'digital-society';
   const disqusConfig = {
-    url: `${WIKI_DOMAIN}/${id}/${slugify(title)}`,
+    url: `${wikiDomain}/${id}/${slugify(title)}`,
     identifier: id, // Single post id
     title, // Single post title
     language: 'fr',
