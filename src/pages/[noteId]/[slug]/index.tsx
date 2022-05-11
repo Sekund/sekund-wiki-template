@@ -133,7 +133,7 @@ export function PostedNote({
     <Layout>
       <div className="flex flex-col">
         <Content />
-        <DisqusComments id={noteId} title={title} wikiDomain={WIKI_DOMAIN} />
+        <DisqusComments id={noteId} title={title} />
       </div>
     </Layout>
   );

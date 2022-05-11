@@ -1,22 +1,17 @@
 import { DiscussionEmbed } from 'disqus-react';
 import slugify from 'slugify';
 
+import { AppConfig } from '@/utils/AppConfig';
+
 type DisqusProps = {
   id: string;
   title: string;
-  wikiDomain: string | undefined;
 };
 
-const DisqusComments = ({ id, title, wikiDomain }: DisqusProps) => {
-  console.log(
-    'disqus comments',
-    id,
-    title,
-    `${wikiDomain}/${id}/${slugify(title)}`
-  );
+const DisqusComments = ({ id, title }: DisqusProps) => {
   const disqusShortname = 'digital-society';
   const disqusConfig = {
-    url: `${wikiDomain}/${id}/${slugify(title)}`,
+    url: `${AppConfig.wiki_domain}/${id}/${slugify(title)}`,
     identifier: id, // Single post id
     title, // Single post title
     language: 'fr',

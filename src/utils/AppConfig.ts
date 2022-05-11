@@ -6,4 +6,5 @@ export const AppConfig = {
     "Une expérience d'apprentissage en public sur l'UX et le potentiel de transformation sociétal des projets numériques",
   locale: 'fr',
   index_page: 'digital-society/digital-society-home.md',
+  wiki_domain: 'https://digital-society.sekund.org',
 };
