@@ -15,11 +15,7 @@ const DisqusComments = ({ id, title }: DisqusProps) => {
     identifier: id, // Single post id
     title, // Single post title
   };
-  return (
-    <div>
-      <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
-    </div>
-  );
+  return <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />;
 };
 
 export default DisqusComments;

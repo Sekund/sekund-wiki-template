@@ -131,10 +131,10 @@ export function PostedNote({
 
   return (
     <Layout>
-      <>
+      <div className="flex flex-col">
         <Content />
         <DisqusComments id={noteId} title={title} />
-      </>
+      </div>
     </Layout>
   );
 }
