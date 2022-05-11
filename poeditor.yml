@@ -1,0 +1,18 @@
+# generate config file
+# poeditor init {project-id}
+# List projects and their translation languages
+# poeditor project-details
+# download translations
+# poeditor pull
+# Upload local translations to poeditor
+# poeditur push
+# Upload only terms (after adding new strings to the project)
+# poeditor push-terms --sync-terms --overwrite
+
+api_token: 4468dd6cf18c2ab3836c8b3b6ba318fd
+projects:
+  - id: 532183
+    format: key_value_json
+    # generic path to translation file
+    terms_path: tmp/locales/{language_code}/common.json
+    # alternatively, specify per-language path

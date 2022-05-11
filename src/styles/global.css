@@ -24,3 +24,7 @@ h4,
 h5 {
 	@apply font-display;
 }
+
+.nav {
+  @apply text-primary-500 dark:text-primary-200 underline
+}

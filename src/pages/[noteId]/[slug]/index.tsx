@@ -11,6 +11,7 @@ import { duotoneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import readingTime from 'reading-time';
 import slugify from 'slugify';
 
+import DisqusComments from '@/components/DisqusComments';
 import Layout from '@/layout/Layout';
 
 import { transformLinks } from '../../../common/markdown-utils';
@@ -130,7 +131,10 @@ export function PostedNote({
 
   return (
     <Layout>
-      <Content />
+      <>
+        <Content />
+        <DisqusComments id={noteId} title={title} />
+      </>
     </Layout>
   );
 }
@@ -184,6 +188,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       datetime: new Date(fullNote.created).toISOString().split('T')[0],
       rTime,
       url: `${WIKI_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
+      atts: content.attributes,
     },
     revalidate: 10,
   };

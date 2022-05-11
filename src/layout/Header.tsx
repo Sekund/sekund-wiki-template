@@ -68,17 +68,29 @@ export default function Header() {
               )}
             </Popover>
 
-            {/* {Object.entries(AppConfig.header).map(([key, value]) => {
-              return (
-                <a
-                  className="text-base font-medium text-gray-500 capitalize hover:text-gray-900"
-                  key={key}
-                  href={value}
-                >
-                  {key}
-                </a>
-              );
-            })} */}
+            {/* <a
+              className="text-base font-medium text-gray-500 capitalize hover:text-gray-900"
+              key={'Contribute'}
+              href={'value'}
+            >
+              {'Table of Contents'}
+            </a>
+
+            <a
+              className="text-base font-medium text-gray-500 capitalize hover:text-gray-900"
+              key={'Contribute'}
+              href={'value'}
+            >
+              {'Discuss'}
+            </a>
+
+            <a
+              className="text-base font-medium text-gray-500 capitalize hover:text-gray-900"
+              key={'Contribute'}
+              href={'value'}
+            >
+              {'Contribute'}
+            </a> */}
 
             <Popover className="relative">
               {({ open }) => (
@@ -180,12 +192,19 @@ export default function Header() {
               </div>
             </div>
             <div className="px-5 py-6 space-y-6">
-              <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+              {/* <div className="flex justify-evenly">
                 <a
                   href="#"
                   className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-700"
                 >
-                  About
+                  Table of Contents
+                </a>
+
+                <a
+                  href="#"
+                  className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-700"
+                >
+                  Discuss
                 </a>
 
                 <a
@@ -194,7 +213,7 @@ export default function Header() {
                 >
                   Contribute
                 </a>
-              </div>
+              </div> */}
               {/* <div>
                 <a
                   href="#"
