@@ -6,16 +6,17 @@ import { serialize } from 'next-mdx-remote/serialize';
 import Link from 'next/link';
 import slugify from 'slugify';
 
+import Layout from '@/layout/Layout';
+
 import { transformLinks } from '../common/markdown-utils';
 import { logIn } from '../common/utils';
+import { BrokenLink } from '../components/links/BrokenLink';
+import { ExternalLink } from '../components/links/ExternalLink';
+import { LeafLink } from '../components/links/LeafLink';
+import { SeedlingLink } from '../components/links/SeedlingLink';
+import { SeedLink } from '../components/links/SeedLink';
+import { WiltLink } from '../components/links/WiltLink';
 import { Note } from '../domain/Note';
-import Header from '../layout/Header';
-import { BrokenLink } from '../links/BrokenLink';
-import { ExternalLink } from '../links/ExternalLink';
-import { LeafLink } from '../links/LeafLink';
-import { SeedlingLink } from '../links/SeedlingLink';
-import { SeedLink } from '../links/SeedLink';
-import { WiltLink } from '../links/WiltLink';
 import { AppConfig } from '../utils/AppConfig';
 
 const { WIKI_DOMAIN, GROUP_ID } = process.env;
@@ -44,7 +45,10 @@ const components = {
 export function Card({ source }: NoteProps) {
   return (
     <div className="relative flex flex-col items-center px-4 mx-auto sm:justify-center grow">
-      <div className="prose-lg lg:prose-lg" style={{ maxWidth: '65ch' }}>
+      <div
+        className="prose prose-lg lg:prose-lg dark:prose-invert"
+        style={{ maxWidth: '65ch' }}
+      >
         <MDXRemote {...source} components={components} />
       </div>
     </div>
@@ -79,9 +83,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function HubPage(props: NoteProps) {
   return (
-    <div className="flex flex-col h-screen">
-      <Header></Header>
+    <Layout>
       <Card {...props} />
-    </div>
+    </Layout>
   );
 }

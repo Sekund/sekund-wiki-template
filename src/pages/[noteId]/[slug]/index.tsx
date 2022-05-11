@@ -5,25 +5,23 @@ import fm from 'front-matter';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import Head from 'next/head';
 import Link from 'next/link';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { duotoneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import readingTime from 'reading-time';
 import slugify from 'slugify';
 
+import Layout from '@/layout/Layout';
+
 import { transformLinks } from '../../../common/markdown-utils';
 import { logIn } from '../../../common/utils';
+import { BrokenLink } from '../../../components/links/BrokenLink';
+import { ExternalLink } from '../../../components/links/ExternalLink';
+import { LeafLink } from '../../../components/links/LeafLink';
+import { SeedlingLink } from '../../../components/links/SeedlingLink';
+import { SeedLink } from '../../../components/links/SeedLink';
+import { WiltLink } from '../../../components/links/WiltLink';
 import { Note } from '../../../domain/Note';
-import Header from '../../../layout/Header';
-import { Meta } from '../../../layout/Meta';
-import { BrokenLink } from '../../../links/BrokenLink';
-import { ExternalLink } from '../../../links/ExternalLink';
-import { LeafLink } from '../../../links/LeafLink';
-import { SeedlingLink } from '../../../links/SeedlingLink';
-import { SeedLink } from '../../../links/SeedLink';
-import { WiltLink } from '../../../links/WiltLink';
-import { AppConfig } from '../../../utils/AppConfig';
 
 type PostedNoteProps = {
   imageUrl: string;
@@ -54,7 +52,6 @@ export function PostedNote({
   source,
   date,
   datetime,
-  url,
   noteId,
   userId,
 }: PostedNoteProps) {
@@ -97,7 +94,7 @@ export function PostedNote({
     return (
       <div className="py-8 overflow-hidden bg-white-4 dark:bg-gray-4">
         <div className="px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto prose-lg max-w-prose">
+          <div className="mx-auto prose prose-lg dark:prose-invert max-w-prose">
             <h1 className="mb-2">
               <span className="block mt-2 text-gray-4 dark:text-white-4">
                 {title}
@@ -110,7 +107,7 @@ export function PostedNote({
               {/* • {rTime} */}
             </span>
           </div>
-          <div className="p-0 mx-auto mt-6 prose prose-lg dark:prose-dark max-w-prose ">
+          <div className="p-0 mx-auto mt-6 prose prose-lg dark:prose-invert dark:prose-dark max-w-prose ">
             <MDXRemote
               {...source}
               components={{
@@ -131,24 +128,10 @@ export function PostedNote({
     );
   }
 
-  const SocialMetatags = () => (
-    <Head>
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@sekund_io" />
-      <meta name="twitter:title" content={title} />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content={title} />
-      <meta property="og:url" content={url} />
-    </Head>
-  );
-
   return (
-    <>
-      <SocialMetatags />
-      <Meta title={AppConfig.title} description={AppConfig.description} />
-      <Header />
+    <Layout>
       <Content />
-    </>
+    </Layout>
   );
 }
 

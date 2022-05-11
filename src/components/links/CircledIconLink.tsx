@@ -24,7 +24,7 @@ const CircledIconLink = ({ label, href, children, target }: LinkProps) => {
       >
         <span className="text-gray-600">{label}</span>
         <span
-          className={`flex flex-col items-center justify-center border-2 rounded-full`}
+          className={`flex flex-col items-center justify-center border rounded-full`}
           style={{ width: '1.5em', height: '1.5em', borderColor: color }}
         >
           {children}

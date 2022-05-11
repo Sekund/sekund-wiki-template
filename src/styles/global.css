@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .icon-link::after {
-  @apply border-current border-b-2;
+  @apply border-current border-b;
   content: '';
   position: absolute;
   bottom: .275em;

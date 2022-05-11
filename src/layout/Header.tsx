@@ -11,11 +11,11 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Example() {
+export default function Header() {
   return (
-    <Popover className="sticky top-0 z-10 bg-white">
-      <div className="px-4 mx-auto max-w-7xl sm:px-6">
-        <div className="flex items-center justify-between py-6 border-b-2 border-gray-100 md:justify-start md:space-x-10">
+    <Popover className="sticky top-0 z-10">
+      <div className="mx-auto dark:bg-gray-900 bg-gray-50 max-w-7xl sm:px-6">
+        <div className="flex items-center justify-between px-4 py-6 border-b border-gray-200 dark:border-gray-800 md:justify-start md:space-x-10">
           <div className="flex items-center justify-start space-x-2 lg:w-0 lg:flex-1">
             <Link href="/">
               <a>
@@ -33,7 +33,7 @@ export default function Example() {
             </div>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
-            <Popover.Button className="inline-flex items-center justify-center p-2 text-gray-400 bg-white rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500">
+            <Popover.Button className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md dark:text-gray-500 bg-gray-50 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset dark:bg-gray-900 focus:ring-primary-500">
               <span className="sr-only">Open menu</span>
               <MenuIcon className="w-6 h-6" aria-hidden="true" />
             </Popover.Button>
@@ -45,7 +45,7 @@ export default function Example() {
                   <Popover.Button
                     className={classNames(
                       open ? 'text-gray-900' : 'text-gray-500',
-                      'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
+                      'group bg-gray-50 dark:bg-gray-900 rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
                     )}
                   ></Popover.Button>
 
@@ -60,7 +60,7 @@ export default function Example() {
                   >
                     <Popover.Panel className="absolute z-10 w-screen max-w-md px-2 mt-3 -ml-4 transform sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="relative grid gap-6 px-5 py-6 bg-white sm:gap-8 sm:p-8"></div>
+                        <div className="relative grid gap-6 px-5 py-6 bg-gray-50 dark:bg-gray-900 sm:gap-8 sm:p-8"></div>
                       </div>
                     </Popover.Panel>
                   </Transition>
@@ -86,7 +86,7 @@ export default function Example() {
                   <Popover.Button
                     className={classNames(
                       open ? 'text-gray-900' : 'text-gray-500',
-                      'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
+                      'group bg-gray-50 dark:bg-gray-900 rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500'
                     )}
                   ></Popover.Button>
 
@@ -151,7 +151,7 @@ export default function Example() {
           focus
           className="absolute inset-x-0 top-0 p-2 transition origin-top-right transform md:hidden"
         >
-          <div className="bg-white divide-y-2 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 divide-gray-50">
+          <div className="divide-y rounded-lg shadow-lg bg-gray-50 dark:bg-gray-900 ring-1 ring-black dark:ring-gray-500 ring-opacity-5 divide-gray-50 dark:divide-gray-500">
             <div className="px-5 pt-5 pb-6">
               <div className="flex items-center justify-between">
                 <Link href="/">
@@ -172,7 +172,7 @@ export default function Example() {
                   </a>
                 </Link>
                 <div className="-mr-2">
-                  <Popover.Button className="inline-flex items-center justify-center p-2 text-gray-400 bg-white rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500">
+                  <Popover.Button className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md dark:text-gray-500 bg-gray-50 dark:bg-gray-900 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500">
                     <span className="sr-only">Close menu</span>
                     <XIcon className="w-6 h-6" aria-hidden="true" />
                   </Popover.Button>
@@ -183,14 +183,14 @@ export default function Example() {
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                 <a
                   href="#"
-                  className="text-base font-medium text-gray-900 hover:text-gray-700"
+                  className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-700"
                 >
                   About
                 </a>
 
                 <a
                   href="#"
-                  className="text-base font-medium text-gray-900 hover:text-gray-700"
+                  className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-700"
                 >
                   Contribute
                 </a>
