@@ -10,11 +10,8 @@ type Props = {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="flex">
-      <div
-        className="flex flex-col w-full bg-gray-50 dark:bg-gray-900"
-        style={{ minHeight: '100vh' }}
-      >
+    <div className="flex bg-gray-50 dark:bg-gray-900">
+      <div className="flex flex-col w-full" style={{ minHeight: '100vh' }}>
         <Header></Header>
         <main
           className="flex justify-center flex-1 w-full"
