@@ -1,14 +1,13 @@
 import { DiscussionEmbed } from 'disqus-react';
 import slugify from 'slugify';
 
-const { WIKI_DOMAIN } = process.env;
-
 type DisqusProps = {
   id: string;
   title: string;
 };
 
 const DisqusComments = ({ id, title }: DisqusProps) => {
+  const { WIKI_DOMAIN } = process.env;
   console.log(
     'disqus comments',
     id,
