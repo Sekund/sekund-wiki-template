@@ -68,7 +68,7 @@ export default function Example() {
               )}
             </Popover>
 
-            {Object.entries(AppConfig.header).map(([key, value]) => {
+            {/* {Object.entries(AppConfig.header).map(([key, value]) => {
               return (
                 <a
                   className="text-base font-medium text-gray-500 capitalize hover:text-gray-900"
@@ -78,7 +78,7 @@ export default function Example() {
                   {key}
                 </a>
               );
-            })}
+            })} */}
 
             <Popover className="relative">
               {({ open }) => (

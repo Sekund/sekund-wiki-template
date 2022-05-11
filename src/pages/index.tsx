@@ -9,13 +9,13 @@ import slugify from 'slugify';
 import { transformLinks } from '../common/markdown-utils';
 import { logIn } from '../common/utils';
 import { Note } from '../domain/Note';
+import Header from '../layout/Header';
 import { BrokenLink } from '../links/BrokenLink';
 import { ExternalLink } from '../links/ExternalLink';
 import { LeafLink } from '../links/LeafLink';
 import { SeedlingLink } from '../links/SeedlingLink';
 import { SeedLink } from '../links/SeedLink';
 import { WiltLink } from '../links/WiltLink';
-import Header from '../templates/Header';
 import { AppConfig } from '../utils/AppConfig';
 
 const { WIKI_DOMAIN, GROUP_ID } = process.env;

@@ -15,6 +15,7 @@ import slugify from 'slugify';
 import { transformLinks } from '../../../common/markdown-utils';
 import { logIn } from '../../../common/utils';
 import { Note } from '../../../domain/Note';
+import Header from '../../../layout/Header';
 import { Meta } from '../../../layout/Meta';
 import { BrokenLink } from '../../../links/BrokenLink';
 import { ExternalLink } from '../../../links/ExternalLink';
@@ -22,7 +23,6 @@ import { LeafLink } from '../../../links/LeafLink';
 import { SeedlingLink } from '../../../links/SeedlingLink';
 import { SeedLink } from '../../../links/SeedLink';
 import { WiltLink } from '../../../links/WiltLink';
-import Header from '../../../templates/Header';
 import { AppConfig } from '../../../utils/AppConfig';
 
 type PostedNoteProps = {
@@ -99,7 +99,7 @@ export function PostedNote({
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="mx-auto prose-lg max-w-prose">
             <h1 className="mb-2">
-              <span className="block mt-2 leading-8 capitalize text-gray-4 dark:text-white-4">
+              <span className="block mt-2 text-gray-4 dark:text-white-4">
                 {title}
               </span>
             </h1>
