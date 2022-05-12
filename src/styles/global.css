@@ -28,3 +28,7 @@ h5 {
 .nav {
   @apply text-primary-500 dark:text-primary-200 underline
 }
+
+.background-box {
+  @apply bg-transparent;
+}

@@ -1,17 +1,20 @@
 /* eslint-disable no-underscore-dangle */
-import React from 'react';
+import React, { useContext } from 'react';
 
 import fm from 'front-matter';
+import { Embed } from 'hyvor-talk-react';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { duotoneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import readingTime from 'reading-time';
 import slugify from 'slugify';
 
-import DisqusComments from '@/components/DisqusComments';
+import { DarkModeContext } from '@/components/ThemedApp';
+import i18nConfig from '@/i18n.config';
 import Layout from '@/layout/Layout';
 
 import { transformLinks } from '../../../common/markdown-utils';
@@ -36,9 +39,8 @@ type PostedNoteProps = {
   url: string;
   noteId: string;
   userId: string;
+  HYVOR_TALK_WEBSITE_ID: number;
 };
-
-const { WIKI_DOMAIN, GROUP_ID } = process.env;
 
 type CodeProps = {
   className: string;
@@ -55,7 +57,31 @@ export function PostedNote({
   datetime,
   noteId,
   userId,
+  HYVOR_TALK_WEBSITE_ID,
 }: PostedNoteProps) {
+  const darkPalette = {
+    accent: '#f9fafb',
+    accentText: '#000',
+    footerHeader: 'rgb(26 32 44)',
+    footerHeaderText: '#cac7c7',
+    box: 'rgb(26 32 44)',
+    boxText: '#f9fafb',
+    boxLightText: '#aaaaaa',
+    backgroundText: '#ffffff',
+  };
+  const lightPalette = {
+    accent: '#1a202c',
+    accentText: '#f9fafb',
+    footerHeader: '#f9fafb',
+    footerHeaderText: '#1a202c',
+    box: '#f9fafb',
+    boxText: '#1a202c',
+    boxLightText: '#aaaaaa',
+    backgroundText: '#ffffff',
+  };
+  const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
+  const { darkMode } = useContext(DarkModeContext);
+
   const Inclusion = ({ src }: DependencyProps) => {
     if (src.match(/(.)*(.jpg|.jpeg|.gif|.png)/)) {
       return (
@@ -133,7 +159,16 @@ export function PostedNote({
     <Layout>
       <div className="flex flex-col">
         <Content />
-        <DisqusComments id={noteId} title={title} />
+        {HYVOR_TALK_WEBSITE_ID ? (
+          <div className="p-2">
+            <Embed
+              websiteId={HYVOR_TALK_WEBSITE_ID}
+              id={noteId}
+              palette={darkMode ? darkPalette : lightPalette}
+              language={i18n.language}
+            />
+          </div>
+        ) : null}
       </div>
     </Layout>
   );
@@ -160,6 +195,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { WIKI_DOMAIN, GROUP_ID, HYVOR_TALK_WEBSITE_ID } = process.env;
   const { noteId } = params as unknown as any;
   const client = await logIn();
   const fullNote = await client.functions.callFunction('getNote', noteId);
@@ -189,6 +225,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       rTime,
       url: `${WIKI_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
       atts: content.attributes,
+      HYVOR_TALK_WEBSITE_ID,
     },
     revalidate: 10,
   };
