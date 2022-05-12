@@ -164,6 +164,7 @@ export function PostedNote({
             <Embed
               websiteId={HYVOR_TALK_WEBSITE_ID}
               id={noteId}
+              title={title}
               palette={darkMode ? darkPalette : lightPalette}
               language={i18n.language}
             />
