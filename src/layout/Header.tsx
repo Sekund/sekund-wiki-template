@@ -14,7 +14,7 @@ function classNames(...classes: any[]) {
 export default function Header() {
   return (
     <Popover className="sticky top-0 z-10">
-      <div className="mx-auto dark:bg-gray-900 bg-gray-50 max-w-7xl sm:px-6">
+      <div className="max-w-6xl mx-auto dark:bg-gray-900 bg-gray-50 sm:px-6">
         <div className="flex items-center justify-between px-4 py-6 border-b border-gray-200 dark:border-gray-800 md:justify-start md:space-x-10">
           <div className="flex items-center justify-start space-x-2 lg:w-0 lg:flex-1">
             <Link href="/">

@@ -73,9 +73,9 @@ export function PostedNote({
     accent: '#1a202c',
     accentText: '#f9fafb',
     footerHeader: '#f9fafb',
-    footerHeaderText: '#1a202c',
+    footerHeaderText: '#4a5568',
     box: '#f9fafb',
-    boxText: '#1a202c',
+    boxText: '#4a5568',
     boxLightText: '#aaaaaa',
     backgroundText: '#ffffff',
   };

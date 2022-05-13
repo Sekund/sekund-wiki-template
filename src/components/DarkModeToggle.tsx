@@ -23,15 +23,17 @@ export default function NightModeToggle({ noLabel, className }: Props) {
 
   return (
     <div
-      className={`${className} flex items-center space-x-2 lg:ml-6 ${
+      className={`${className || ''} flex items-center space-x-2 lg:ml-2 ${
         noLabel ? '' : 'w-full'
       }`}
     >
       <span
-        className={`text-gray-900 dark:text-gray-200 ${
+        className={`lg:hidden text-gray-900 dark:text-gray-200 ${
           noLabel ? 'hidden' : ''
         }`}
-      ></span>
+      >
+        Theme:
+      </span>
       <Switch
         checked={darkMode}
         onChange={() => {
