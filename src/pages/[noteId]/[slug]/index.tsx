@@ -178,17 +178,23 @@ export function PostedNote({
 export default PostedNote;
 
 export async function getStaticPaths() {
+  const { GROUP_ID } = process.env;
   const client = await logIn();
   const notes: Note[] = await client.functions.callFunction(
-    'publishedNotes',
-    'sdtsi'
+    'groupNotes',
+    GROUP_ID
   );
   const paths = notes.map((note) => {
+    const content = fm(note.content);
+    let title = note.title.replace('.md', '');
+    if (content.attributes && (content.attributes as any).title) {
+      title = (content.attributes as any).title;
+    }
     return {
       params: {
         // eslint-disable-next-line no-underscore-dangle
-        id: note._id.toString(),
-        slug: slugify(note.title.replace('.md', '')),
+        noteId: note._id.toString(),
+        slug: slugify(title.replace('.md', '')),
       },
     };
   });
