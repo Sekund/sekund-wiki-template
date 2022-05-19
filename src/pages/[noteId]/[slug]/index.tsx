@@ -274,7 +274,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       imageUrl: encodeURI(imageUrl) || null,
       description: description || null,
       HYVOR_TALK_WEBSITE_ID,
-      twitterHandle: TWITTER_HANDLE,
+      twitterHandle: TWITTER_HANDLE || null,
     },
     revalidate: 10,
   };
