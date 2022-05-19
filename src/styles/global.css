@@ -37,8 +37,6 @@ h5 {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
-  margin-left: -1rem;
-  margin-right: -1rem;
 }
 
 .youtube-video iframe, object, embed {
@@ -47,4 +45,19 @@ h5 {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.sekund-content .sekund-header,
+.sekund-content p {
+  @apply px-4 sm:px-6 lg:px-8
+}
+
+.sekund-content ol, blockquote {
+  @apply mx-auto border-none
+}
+
+
+.building {
+  background-image: linear-gradient(135deg, #d55268 25%, #e6ccce 25%, #e6ccce 50%, #d55268 50%, #d55268 75%, #e6ccce 75%, #e6ccce 100%);
+  background-size: 14.14px 14.14px;
 }

@@ -7,7 +7,8 @@ import slugify from 'slugify';
 import { Note } from '../domain/Note';
 
 const wikiLinkRe = /\[\[([^\]\[:]+)\|([^\]\[:]+)\]\]|\[\[([^\]\[:]+)\]\]/gm;
-const hyperlinkRe = /!?\[([^\]]*)\]\(([^\)]+)\)/gm;
+const hyperlinkRe = /\[([^\]]*)\]\(([^\)]+)\)/gm;
+const inclusionsRe = /!\[\[(.*?)\]\]/gm;
 
 // const inclusionsRe = /!\[\[(.*?)\]\]/gm;
 
@@ -127,4 +128,10 @@ export function transformLinks(md: string, wikiNotes: Note[]): string {
   let result = transformWikiLinks(md, wikiNotes);
   result = transformHyperlinks(result);
   return result;
+}
+
+export function transformInclusions(md: string): string {
+  const replacedInclusions = md.replace(inclusionsRe, `<Inclusion src="$1"/>`);
+  console.log('inclusion', replacedInclusions);
+  return replacedInclusions;
 }

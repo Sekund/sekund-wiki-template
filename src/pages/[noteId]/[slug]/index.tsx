@@ -17,7 +17,10 @@ import { DarkModeContext } from '@/components/ThemedApp';
 import i18nConfig from '@/i18n.config';
 import Layout from '@/layout/Layout';
 
-import { transformLinks } from '../../../common/markdown-utils';
+import {
+  transformInclusions,
+  transformLinks,
+} from '../../../common/markdown-utils';
 import { logIn } from '../../../common/utils';
 import { BrokenLink } from '../../../components/links/BrokenLink';
 import { ExternalLink } from '../../../components/links/ExternalLink';
@@ -86,8 +89,8 @@ export function PostedNote({
     if (src.match(/(.)*(.jpg|.jpeg|.gif|.png)/)) {
       return (
         <img
-          alt="some image"
-          src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/${src}`}
+          alt="image"
+          src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/assets/${src}`}
         />
       );
     }
@@ -120,8 +123,8 @@ export function PostedNote({
   function Content() {
     return (
       <div className="py-8 overflow-hidden bg-white-4 dark:bg-gray-4">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto prose prose-lg dark:prose-invert max-w-prose">
+        <div className="sekund-content">
+          <div className="mx-auto prose prose-lg dark:prose-invert max-w-prose sekund-header">
             <h1 className="mb-2">
               <span className="block mt-2 text-gray-4 dark:text-white-4">
                 {title}
@@ -220,7 +223,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     GROUP_ID
   );
 
-  const mdxSource = await serialize(transformLinks(body, notes));
+  const mdxSource = await serialize(
+    transformLinks(transformInclusions(body), notes)
+  );
   return {
     props: {
       title,
