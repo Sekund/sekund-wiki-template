@@ -6,6 +6,7 @@ import { Embed } from 'hyvor-talk-react';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -35,6 +36,7 @@ type PostedNoteProps = {
   category: string;
   title: string;
   description: string;
+  author: string;
   source: MDXRemoteSerializeResult<Record<string, unknown>>;
   date: string;
   datetime: string;
@@ -42,6 +44,7 @@ type PostedNoteProps = {
   url: string;
   noteId: string;
   userId: string;
+  twitterHandle: string;
   HYVOR_TALK_WEBSITE_ID: number;
 };
 
@@ -55,6 +58,10 @@ type DependencyProps = {
 
 export function PostedNote({
   title,
+  description,
+  url,
+  imageUrl,
+  twitterHandle,
   source,
   date,
   datetime,
@@ -103,6 +110,27 @@ export function PostedNote({
       </span>
     );
   };
+
+  const SocialMetatags = () => (
+    <Head>
+      <meta name="twitter:card" content="summary_large_image" />
+      {twitterHandle ? (
+        <meta name="twitter:site" content={twitterHandle} />
+      ) : null}
+      <meta name="twitter:title" content={title} />
+      {description ? (
+        <meta name="twitter:description" content={description} />
+      ) : null}
+      {imageUrl ? <meta name="twitter:image" content={imageUrl} /> : null}
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content={title} />
+      {description ? (
+        <meta property="og:description" content={description} />
+      ) : null}
+      <meta property="og:url" content={url} />
+      {imageUrl ? <meta property="og:image" content={imageUrl} /> : null}
+    </Head>
+  );
 
   function Code({ className, children, ...props }: CodeProps) {
     const match = /language-(\w+)/.exec(className || '');
@@ -159,22 +187,25 @@ export function PostedNote({
   }
 
   return (
-    <Layout>
-      <div className="flex flex-col">
-        <Content />
-        {HYVOR_TALK_WEBSITE_ID ? (
-          <div className="p-2">
-            <Embed
-              websiteId={HYVOR_TALK_WEBSITE_ID}
-              id={noteId}
-              title={title}
-              palette={darkMode ? darkPalette : lightPalette}
-              language={i18n.language}
-            />
-          </div>
-        ) : null}
-      </div>
-    </Layout>
+    <>
+      <SocialMetatags />
+      <Layout>
+        <div className="flex flex-col">
+          <Content />
+          {HYVOR_TALK_WEBSITE_ID ? (
+            <div className="p-2">
+              <Embed
+                websiteId={HYVOR_TALK_WEBSITE_ID}
+                id={noteId}
+                title={title}
+                palette={darkMode ? darkPalette : lightPalette}
+                language={i18n.language}
+              />
+            </div>
+          ) : null}
+        </div>
+      </Layout>
+    </>
   );
 }
 
@@ -205,7 +236,8 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { WIKI_DOMAIN, GROUP_ID, HYVOR_TALK_WEBSITE_ID } = process.env;
+  const { WIKI_DOMAIN, GROUP_ID, HYVOR_TALK_WEBSITE_ID, TWITTER_HANDLE } =
+    process.env;
   const { noteId } = params as unknown as any;
   const client = await logIn();
   const fullNote = await client.functions.callFunction('getNote', noteId);
@@ -214,9 +246,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const minutes = Math.round(readingStats.minutes);
   const rTime = `${minutes > 1 ? `${minutes} minutes` : 'less than a minute'}`;
   let title = fullNote.title.replace('.md', '');
-  if (content.attributes && (content.attributes as any).title) {
-    title = (content.attributes as any).title;
+  const atts = content.attributes as any;
+  if (atts.title) {
+    title = atts.title;
   }
+  const { imageUrl, description } = atts;
   const { body } = content;
   const notes: Note[] = await client.functions.callFunction(
     'groupNotes',
@@ -236,8 +270,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       datetime: new Date(fullNote.created).toISOString().split('T')[0],
       rTime,
       url: `${WIKI_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
-      atts: content.attributes,
+      atts,
+      imageUrl: encodeURI(imageUrl) || null,
+      description: description || null,
       HYVOR_TALK_WEBSITE_ID,
+      twitterHandle: TWITTER_HANDLE,
     },
     revalidate: 10,
   };

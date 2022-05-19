@@ -131,7 +131,5 @@ export function transformLinks(md: string, wikiNotes: Note[]): string {
 }
 
 export function transformInclusions(md: string): string {
-  const replacedInclusions = md.replace(inclusionsRe, `<Inclusion src="$1"/>`);
-  console.log('inclusion', replacedInclusions);
-  return replacedInclusions;
+  return md.replace(inclusionsRe, `<Inclusion src="$1"/>`);
 }
