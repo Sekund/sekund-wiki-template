@@ -14,6 +14,8 @@ import { duotoneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import readingTime from 'reading-time';
 import slugify from 'slugify';
 
+import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
+import { TwitterIcon } from '@/components/icons/TwitterIcon';
 import { DarkModeContext } from '@/components/ThemedApp';
 import i18nConfig from '@/i18n.config';
 import Layout from '@/layout/Layout';
@@ -38,13 +40,15 @@ type PostedNoteProps = {
   description: string;
   author: string;
   source: MDXRemoteSerializeResult<Record<string, unknown>>;
-  date: string;
-  datetime: string;
+  date: number;
   rTime: string;
   url: string;
   noteId: string;
   userId: string;
-  twitterHandle: string;
+  avatarImage?: string;
+  userName?: string;
+  twitterHandle?: string;
+  linkedInPage?: string;
   HYVOR_TALK_WEBSITE_ID: number;
 };
 
@@ -64,9 +68,11 @@ export function PostedNote({
   twitterHandle,
   source,
   date,
-  datetime,
   noteId,
   userId,
+  avatarImage,
+  userName,
+  linkedInPage,
   HYVOR_TALK_WEBSITE_ID,
 }: PostedNoteProps) {
   const darkPalette = {
@@ -118,8 +124,12 @@ export function PostedNote({
         <meta name="twitter:site" content={twitterHandle} />
       ) : null}
       <meta name="twitter:title" content={title} />
+      {userName ? <meta name="author" content={userName} /> : null}
       {description ? (
-        <meta name="twitter:description" content={description} />
+        <>
+          <meta name="twitter:description" content={description} />
+          <meta name="description" content={description} />
+        </>
       ) : null}
       {imageUrl ? <meta name="twitter:image" content={imageUrl} /> : null}
       <meta property="og:type" content="article" />
@@ -158,11 +168,26 @@ export function PostedNote({
                 {title}
               </span>
             </h1>
-            <span className="text-md text-gray-4 dark:text-gray-1">
-              <time className="text-gray-600 truncate" dateTime={datetime}>
-                {date}
-              </time>{' '}
-              {/* • {rTime} */}
+            <span className="text-md text-gray-4 dark:text-gray-1 flex items-center space-x-1">
+              {avatarImage ? (
+                <img
+                  className="inline-block h-10 w-10 rounded-full"
+                  src={avatarImage}
+                  alt="Avatar Image"
+                />
+              ) : null}
+              {userName ? <span>{userName}</span> : null}
+              {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
+              {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
+              <span>{' • '}</span>
+
+              <time className="text-gray-600 truncate">
+                {new Date(date).toLocaleDateString(i18n.language, {
+                  month: 'long',
+                  day: 'numeric',
+                  year: '2-digit',
+                })}
+              </time>
             </span>
           </div>
           <div className="p-0 mx-auto mt-6 prose prose-lg dark:prose-invert dark:prose-dark max-w-prose ">
@@ -236,20 +261,22 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { WIKI_DOMAIN, GROUP_ID, HYVOR_TALK_WEBSITE_ID, TWITTER_HANDLE } =
-    process.env;
+  const { WIKI_DOMAIN, GROUP_ID, HYVOR_TALK_WEBSITE_ID } = process.env;
   const { noteId } = params as unknown as any;
   const client = await logIn();
+
   const fullNote = await client.functions.callFunction('getNote', noteId);
   const content = fm(fullNote.content);
   const readingStats = readingTime(content.body);
   const minutes = Math.round(readingStats.minutes);
   const rTime = `${minutes > 1 ? `${minutes} minutes` : 'less than a minute'}`;
+
   let title = fullNote.title.replace('.md', '');
   const atts = content.attributes as any;
   if (atts.title) {
     title = atts.title;
   }
+
   const { imageUrl, description } = atts;
   const { body } = content;
   const notes: Note[] = await client.functions.callFunction(
@@ -266,15 +293,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       noteId: fullNote._id.toString(),
       userId: client.customData._id,
       source: mdxSource,
-      date: `${new Date(fullNote.created).toDateString()}`,
-      datetime: new Date(fullNote.created).toISOString().split('T')[0],
+      date: fullNote.created,
       rTime,
       url: `${WIKI_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
       atts,
       imageUrl: encodeURI(imageUrl) || null,
       description: description || null,
       HYVOR_TALK_WEBSITE_ID,
-      twitterHandle: TWITTER_HANDLE || null,
+      twitterHandle: fullNote.user.twitterHandle || null,
+      linkedInPage: fullNote.user.linkedInPage || null,
+      avatarImage: fullNote.user.image,
+      userName: fullNote.user.name,
     },
     revalidate: 10,
   };
