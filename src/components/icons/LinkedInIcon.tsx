@@ -5,7 +5,7 @@ type Props = {
 const LinkedInIcon = ({ href }: Props) => {
   return (
     <a
-      className={`relative inline-flex space-x-1 h-5 cursor-pointer no-underline color-gray-900 dark:color-gray-100`}
+      className={`h-5 w-5 cursor-pointer no-underline color-gray-900 dark:color-gray-100`}
       href={href}
       target="_blank"
       rel="noreferrer"

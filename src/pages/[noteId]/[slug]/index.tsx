@@ -14,8 +14,7 @@ import { duotoneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import readingTime from 'reading-time';
 import slugify from 'slugify';
 
-import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
-import { TwitterIcon } from '@/components/icons/TwitterIcon';
+import PostMetadata from '@/components/PostMetadata';
 import { DarkModeContext } from '@/components/ThemedApp';
 import i18nConfig from '@/i18n.config';
 import Layout from '@/layout/Layout';
@@ -163,32 +162,16 @@ export function PostedNote({
       <div className="py-8 overflow-hidden bg-white-4 dark:bg-gray-4">
         <div className="sekund-content">
           <div className="mx-auto prose prose-lg dark:prose-invert max-w-prose sekund-header">
-            <h1 className="mb-2">
-              <span className="block mt-2 text-gray-4 dark:text-white-4">
-                {title}
-              </span>
-            </h1>
-            <span className="text-md text-gray-4 dark:text-gray-1 flex items-center space-x-1">
-              {avatarImage ? (
-                <img
-                  className="inline-block h-10 w-10 rounded-full"
-                  src={avatarImage}
-                  alt="Avatar Image"
-                />
-              ) : null}
-              {userName ? <span>{userName}</span> : null}
-              {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
-              {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
-              <span>{' • '}</span>
-
-              <time className="text-gray-600 truncate">
-                {new Date(date).toLocaleDateString(i18n.language, {
-                  month: 'long',
-                  day: 'numeric',
-                  year: '2-digit',
-                })}
-              </time>
-            </span>
+            <PostMetadata
+              {...{
+                title,
+                userName,
+                avatarImage,
+                date,
+                twitterHandle,
+                linkedInPage,
+              }}
+            />
           </div>
           <div className="p-0 mx-auto mt-6 prose prose-lg dark:prose-invert dark:prose-dark max-w-prose ">
             <MDXRemote
