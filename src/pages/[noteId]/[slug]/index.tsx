@@ -99,10 +99,36 @@ export function PostedNote({
 
   const Inclusion = ({ src }: DependencyProps) => {
     if (src.match(/(.)*(.jpg|.jpeg|.gif|.png)/)) {
+      let image = src;
+      let caption = '';
+      if (src.indexOf('|') !== -1) {
+        const splits = image.split('|');
+        image = splits[0]!;
+        // eslint-disable-next-line prefer-destructuring
+        caption = splits[1]!;
+      }
+      if (caption.length > 0) {
+        return (
+          <div className="relative inline-block my-0">
+            <img
+              alt={caption}
+              style={{ width: '100%' }}
+              className="my-0"
+              src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/assets/${image}`}
+            />
+            <div
+              className="text-sm italic absolute left-4 sm:left-6 lg:left-8 bottom-6 text-white align-left leading-snug"
+              style={{ width: '75%' }}
+            >
+              {caption}
+            </div>
+          </div>
+        );
+      }
       return (
         <img
-          alt="image"
-          src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/assets/${src}`}
+          alt={caption}
+          src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/assets/${image}`}
         />
       );
     }

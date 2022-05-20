@@ -23,21 +23,26 @@ export default function PostMetadata({
 }: Props) {
   const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
   return (
-    <div>
-      <h1 className="mb-2">
+    <div className="block mb-8">
+      <h1 className="mb-4">
         <span className="block mt-2 text-gray-4 dark:text-white-4">
           {title}
         </span>
       </h1>
-      <span className="text-md text-gray-4 dark:text-gray-1 flex items-center space-x-1">
+      <div className="text-md text-gray-4 dark:text-gray-1 flex items-center space-x-2">
         {avatarImage ? (
           <img
             className="inline-block h-10 w-10 rounded-full"
+            style={{ margin: 0 }}
             src={avatarImage}
             alt="Avatar Image"
           />
         ) : null}
-        {userName ? <span>{userName}</span> : null}
+        {userName ? (
+          <div className="overflow-hidden truncate">
+            <span>{userName}</span>
+          </div>
+        ) : null}
         {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
         {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
         <span>{' • '}</span>
@@ -49,7 +54,7 @@ export default function PostMetadata({
             year: '2-digit',
           })}
         </time>
-      </span>
+      </div>
     </div>
   );
 }
