@@ -5,6 +5,6 @@ export const AppConfig = {
   description:
     "Une expérience d'apprentissage en public sur l'UX et le potentiel de transformation sociétal des projets numériques",
   locale: 'fr',
-  index_page: 'digital-society/digital-society-home.md',
+  index_page: 'Personal Stuff/Tech/Obsidian/Obsidian.md',
   wiki_domain: 'https://digital-society.sekund.org',
 };
