@@ -1,13 +1,11 @@
 import { NextSeo } from 'next-seo';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-import { AppConfig } from '../utils/AppConfig';
-
 // Need to create a custom _document because i18n support is not compatible with `next export`.
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang={AppConfig.locale}>
+      <Html lang={process.env.LOCALE}>
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -29,15 +27,14 @@ class MyDocument extends Document {
           <link rel="icon" href={`/favicon.svg`} type="image/svg+xml" />
         </Head>
         <NextSeo
-          title={AppConfig.title}
-          description={AppConfig.description}
+          title={process.env.TITLE}
+          description={process.env.DESCRIPTION}
           // canonical={props.canonical}
           openGraph={{
-            title: AppConfig.title,
-            description: AppConfig.description,
-            // url: props.canonical,
-            locale: AppConfig.locale,
-            site_name: AppConfig.site_name,
+            title: process.env.TITLE,
+            description: process.env.DESCRIPTION,
+            locale: process.env.LOCALE,
+            site_name: process.env.SITE_NAME,
           }}
         />
         <body>

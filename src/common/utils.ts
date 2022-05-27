@@ -2,15 +2,16 @@ import * as Realm from 'realm-web';
 
 export async function logIn() {
   if (
-    process.env.REALM_APP_USER_ID &&
-    process.env.REALM_APP_USER_PASSWORD &&
-    process.env.REALM_APP_ID
+    (process.env.SEKUND_USER_ID &&
+      process.env.SEKUND_USER_PASSWORD &&
+      process.env.SEKUND_APP_ID) ||
+    'sekund-ttmmm'
   ) {
     const creds = Realm.App.Credentials.emailPassword(
-      process.env.REALM_APP_USER_ID,
-      process.env.REALM_APP_USER_PASSWORD
+      process.env.SEKUND_USER_ID!,
+      process.env.SEKUND_USER_PASSWORD!
     );
-    return new Realm.App(process.env.REALM_APP_ID).logIn(creds);
+    return new Realm.App(process.env.SEKUND_APP_ID!).logIn(creds);
   }
   throw new Error('Missing environment');
 }

@@ -18,7 +18,6 @@ import { SeedlingLink } from '../components/links/SeedlingLink';
 import { SeedLink } from '../components/links/SeedLink';
 import { WiltLink } from '../components/links/WiltLink';
 import { Note } from '../domain/Note';
-import { AppConfig } from '../utils/AppConfig';
 
 const { WIKI_DOMAIN, GROUP_ID } = process.env;
 
@@ -83,7 +82,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const client = await logIn();
   const fullNote = await client.functions.callFunction(
     'getNoteByPath',
-    AppConfig.index_page
+    process.env.INDEX_PAGE
   );
   const content = fm(fullNote.content);
 

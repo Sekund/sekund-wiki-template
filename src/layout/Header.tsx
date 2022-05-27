@@ -5,8 +5,6 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 
-import { AppConfig } from '../utils/AppConfig';
-
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
 }
@@ -28,8 +26,8 @@ export default function Header() {
               </a>
             </Link>
             <div className="text-gray-500">
-              <div>{AppConfig.title}</div>
-              <div className="text-xs">{AppConfig.sub_title}</div>
+              <div>{process.env.TITLE}</div>
+              <div className="text-xs">{process.env.SUB_TITLE}</div>
             </div>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
