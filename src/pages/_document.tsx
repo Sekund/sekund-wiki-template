@@ -5,7 +5,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang={process.env.LOCALE}>
+      <Html lang={process.env.NEXT_PUBLIC_LOCALE}>
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -27,14 +27,14 @@ class MyDocument extends Document {
           <link rel="icon" href={`/favicon.svg`} type="image/svg+xml" />
         </Head>
         <NextSeo
-          title={process.env.TITLE}
-          description={process.env.DESCRIPTION}
+          title={process.env.NEXT_PUBLIC_TITLE}
+          description={process.env.NEXT_PUBLIC_DESCRIPTION}
           // canonical={props.canonical}
           openGraph={{
-            title: process.env.TITLE,
-            description: process.env.DESCRIPTION,
-            locale: process.env.LOCALE,
-            site_name: process.env.SITE_NAME,
+            title: process.env.NEXT_PUBLIC_TITLE,
+            description: process.env.NEXT_PUBLIC_DESCRIPTION,
+            locale: process.env.NEXT_PUBLIC_LOCALE,
+            site_name: process.env.NEXT_PUBLIC_SITE_NAME,
           }}
         />
         <body>

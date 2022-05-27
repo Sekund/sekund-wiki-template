@@ -270,7 +270,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { WIKI_DOMAIN, GROUP_ID, HYVOR_TALK_WEBSITE_ID } = process.env;
+  const { DECK_DOMAIN, GROUP_ID, HYVOR_TALK_WEBSITE_ID } = process.env;
   const { noteId } = params as unknown as any;
   const client = await logIn();
 
@@ -304,7 +304,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       source: mdxSource,
       date: fullNote.created,
       rTime,
-      url: `${WIKI_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
+      url: `${DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
       atts,
       imageUrl: encodeURI(imageUrl) || null,
       description: description || null,

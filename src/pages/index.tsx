@@ -19,7 +19,7 @@ import { SeedLink } from '../components/links/SeedLink';
 import { WiltLink } from '../components/links/WiltLink';
 import { Note } from '../domain/Note';
 
-const { WIKI_DOMAIN, GROUP_ID } = process.env;
+const { DECK_DOMAIN, GROUP_ID } = process.env;
 
 type NoteProps = {
   imageUrl: string;
@@ -103,7 +103,7 @@ export const getStaticProps: GetStaticProps = async () => {
       noteId: fullNote._id.toString(),
       userId: client.customData._id,
       source: mdxSource,
-      url: `${WIKI_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
+      url: `${DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
       date: fullNote.created,
       twitterHandle: fullNote.user.twitterHandle || null,
       linkedInPage: fullNote.user.linkedInPage || null,

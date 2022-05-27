@@ -26,8 +26,8 @@ export default function Header() {
               </a>
             </Link>
             <div className="text-gray-500">
-              <div>{process.env.TITLE}</div>
-              <div className="text-xs">{process.env.SUB_TITLE}</div>
+              <div>{process.env.NEXT_PUBLIC_TITLE}</div>
+              <div className="text-xs">{process.env.NEXT_PUBLIC_SUB_TITLE}</div>
             </div>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
