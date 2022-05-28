@@ -308,7 +308,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       atts,
       imageUrl: encodeURI(imageUrl) || null,
       description: description || null,
-      HYVOR_TALK_WEBSITE_ID,
+      HYVOR_TALK_WEBSITE_ID: HYVOR_TALK_WEBSITE_ID || null,
       twitterHandle: fullNote.user.twitterHandle || null,
       linkedInPage: fullNote.user.linkedInPage || null,
       avatarImage: fullNote.user.image,

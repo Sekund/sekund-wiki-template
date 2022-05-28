@@ -1,9 +1,6 @@
 import * as Realm from 'realm-web';
 
 export async function logIn() {
-  console.log(
-    `username/password ${process.env.SEKUND_USER_ID}/${process.env.SEKUND_USER_PASSWORD}`
-  );
   if (process.env.SEKUND_USER_ID && process.env.SEKUND_USER_PASSWORD) {
     const creds = Realm.App.Credentials.emailPassword(
       process.env.SEKUND_USER_ID,
