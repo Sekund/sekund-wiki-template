@@ -1,9 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useContext } from 'react';
 
-import render from 'dom-serializer';
 import fm from 'front-matter';
-import * as htmlparser2 from 'htmlparser2';
 import { Embed } from 'hyvor-talk-react';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -293,17 +291,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     GROUP_ID
   );
 
-  const dom = htmlparser2.parseDocument(body);
-  const xmlBody = render(dom, { xmlMode: true });
+  // const dom = htmlparser2.parseDocument(body);
+  // const xmlBody = render(dom, {
+  //   xmlMode: false,
+  // });
 
   const mdxSource = await serialize(
-    transformLinks(transformInclusions(xmlBody), notes),
+    transformLinks(transformInclusions(body), notes),
     {
       mdxOptions: {
         remarkPlugins: [remarkGfm],
       },
     }
   );
+
   return {
     props: {
       title,
