@@ -35,6 +35,7 @@ type NoteProps = {
   userName?: string;
   twitterHandle?: string;
   linkedInPage?: string;
+  personalPage?: string;
 };
 
 const components = {
@@ -55,6 +56,7 @@ export function Card({
   title,
   twitterHandle,
   linkedInPage,
+  personalPage,
 }: NoteProps) {
   return (
     <div className="relative flex flex-col items-center px-4 mx-auto sm:justify-center grow">
@@ -70,6 +72,7 @@ export function Card({
             date,
             twitterHandle,
             linkedInPage,
+            personalPage,
           }}
         />
         <MDXRemote {...source} components={components} />
@@ -107,6 +110,7 @@ export const getStaticProps: GetStaticProps = async () => {
       date: fullNote.created,
       twitterHandle: fullNote.user.twitterHandle || null,
       linkedInPage: fullNote.user.linkedInPage || null,
+      personalPage: fullNote.user.personalPage || null,
       avatarImage: fullNote.user.image,
       userName: fullNote.user.name,
     },

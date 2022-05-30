@@ -9,6 +9,7 @@ type Props = {
   userName?: string;
   twitterHandle?: string;
   linkedInPage?: string;
+  personalPage?: string;
   title: string;
   date: number;
 };
@@ -18,6 +19,7 @@ export default function PostMetadata({
   userName,
   twitterHandle,
   linkedInPage,
+  personalPage,
   title,
   date,
 }: Props) {
@@ -40,7 +42,13 @@ export default function PostMetadata({
         ) : null}
         {userName ? (
           <div className="overflow-hidden truncate">
-            <span>{userName}</span>
+            {personalPage ? (
+              <a href={personalPage} target="_blank" rel="noreferrer">
+                {userName}
+              </a>
+            ) : (
+              <span>{userName}</span>
+            )}
           </div>
         ) : null}
         {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}

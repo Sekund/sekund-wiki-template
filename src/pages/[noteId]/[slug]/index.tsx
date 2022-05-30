@@ -46,6 +46,7 @@ type PostedNoteProps = {
   userName?: string;
   twitterHandle?: string;
   linkedInPage?: string;
+  personalPage?: string;
   HYVOR_TALK_WEBSITE_ID: number;
 };
 
@@ -70,6 +71,7 @@ export function PostedNote({
   avatarImage,
   userName,
   linkedInPage,
+  personalPage,
   HYVOR_TALK_WEBSITE_ID,
 }: PostedNoteProps) {
   const darkPalette = {
@@ -194,6 +196,7 @@ export function PostedNote({
                 date,
                 twitterHandle,
                 linkedInPage,
+                personalPage,
               }}
             />
           </div>
@@ -320,6 +323,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       HYVOR_TALK_WEBSITE_ID: HYVOR_TALK_WEBSITE_ID || null,
       twitterHandle: fullNote.user.twitterHandle || null,
       linkedInPage: fullNote.user.linkedInPage || null,
+      personalPage: fullNote.user.personalPage || null,
       avatarImage: fullNote.user.image,
       userName: fullNote.user.name,
     },
