@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useContext } from 'react';
 
+import render from 'dom-serializer';
 import fm from 'front-matter';
+import * as htmlparser2 from 'htmlparser2';
 import { Embed } from 'hyvor-talk-react';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -12,17 +14,15 @@ import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { duotoneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import readingTime from 'reading-time';
+import remarkGfm from 'remark-gfm';
 import slugify from 'slugify';
 
+import { transformLinks, transformInclusions } from '@/common/markdown-utils';
 import PostMetadata from '@/components/PostMetadata';
 import { DarkModeContext } from '@/components/ThemedApp';
 import i18nConfig from '@/i18n.config';
 import Layout from '@/layout/Layout';
 
-import {
-  transformInclusions,
-  transformLinks,
-} from '../../../common/markdown-utils';
 import { logIn } from '../../../common/utils';
 import { BrokenLink } from '../../../components/links/BrokenLink';
 import { ExternalLink } from '../../../components/links/ExternalLink';
@@ -293,8 +293,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     GROUP_ID
   );
 
+  const dom = htmlparser2.parseDocument(body);
+  const xmlBody = render(dom, { xmlMode: true });
+
   const mdxSource = await serialize(
-    transformLinks(transformInclusions(body), notes)
+    transformLinks(transformInclusions(xmlBody), notes),
+    {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+      },
+    }
   );
   return {
     props: {

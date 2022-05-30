@@ -16,9 +16,12 @@
 	"dependencies": {
 		"@headlessui/react": "^1.5.0",
 		"@heroicons/react": "^1.0.6",
+		"@types/htmlparser2": "^3.10.3",
 		"bson-objectid": "^2.0.3",
 		"classnames": "^2.3.1",
+		"dom-serializer": "^2.0.0",
 		"front-matter": "^4.0.2",
+		"htmlparser2": "^8.0.1",
 		"hyvor-talk-react": "^2.0.0",
 		"i18next": "^21.3.1",
 		"next": "^12.0.9",
@@ -30,6 +33,7 @@
 		"react-syntax-highlighter": "^15.5.0",
 		"reading-time": "^1.5.0",
 		"realm-web": "^1.7.0",
+		"remark-gfm": "^3.0.1",
 		"slugify": "^1.6.5",
 		"styled-jsx-plugin-postcss": "^4.0.1"
 	},
