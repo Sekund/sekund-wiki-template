@@ -1,4 +1,3 @@
-import { NextSeo } from 'next-seo';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 // Need to create a custom _document because i18n support is not compatible with `next export`.
@@ -26,17 +25,6 @@ class MyDocument extends Document {
           <link rel="icon" href={`/favicon.png`} sizes="any" />
           <link rel="icon" href={`/favicon.svg`} type="image/svg+xml" />
         </Head>
-        <NextSeo
-          title={process.env.NEXT_PUBLIC_TITLE}
-          description={process.env.NEXT_PUBLIC_DESCRIPTION}
-          // canonical={props.canonical}
-          openGraph={{
-            title: process.env.NEXT_PUBLIC_TITLE,
-            description: process.env.NEXT_PUBLIC_DESCRIPTION,
-            locale: process.env.NEXT_PUBLIC_LOCALE,
-            site_name: process.env.NEXT_PUBLIC_SITE_NAME,
-          }}
-        />
         <body>
           <Main />
           <NextScript />

@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
@@ -14,6 +15,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
         key="viewport"
       />
     </Head>
+    <NextSeo
+      title={process.env.NEXT_PUBLIC_TITLE}
+      description={process.env.NEXT_PUBLIC_DESCRIPTION}
+      // canonical={props.canonical}
+      openGraph={{
+        title: process.env.NEXT_PUBLIC_TITLE,
+        description: process.env.NEXT_PUBLIC_DESCRIPTION,
+        locale: process.env.NEXT_PUBLIC_LOCALE,
+        site_name: process.env.NEXT_PUBLIC_SITE_NAME,
+      }}
+    />
     <Component {...pageProps} />
   </>
 );

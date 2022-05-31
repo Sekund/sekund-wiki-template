@@ -4,6 +4,15 @@
 
 @tailwind utilities;
 
+.icon-link {
+  @apply overflow-hidden;
+}
+
+.icon-link span {
+  @apply truncate
+}
+
+
 .icon-link::after {
   @apply border-current border-b;
   content: '';
@@ -48,7 +57,13 @@ h5 {
 }
 
 .sekund-content .sekund-header,
-.sekund-content p {
+.sekund-content p,
+.sekund-content h1,
+.sekund-content h2,
+.sekund-content h3,
+.sekund-content h4,
+.sekund-content h5,
+.sekund-content h6 {
   @apply px-4 sm:px-6 lg:px-8
 }
 
