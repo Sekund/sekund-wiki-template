@@ -1,4 +1,11 @@
 {
-  "next": "Suivant",
-  "otherLinks": "Autres liens"
+    "next": "Suivant",
+    "otherLinks": "Autres liens",
+    "areYouBothered": "Y a-t-il quelque chose qui vous heurte, vous amuse ou vous agace dans cet article?",
+    "sendComment": "Envoyer un commentaire à l'auteur",
+    "fullName": "Nom",
+    "email": "Adresse mail",
+    "message": "Message",
+    "send": "Envoyer",
+    "cancel": "Annuler"
 }

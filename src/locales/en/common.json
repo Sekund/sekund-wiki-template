@@ -1,4 +1,11 @@
 {
-  "next": "Next",
-  "otherLinks": "Other links"
+    "next": "Next",
+    "otherLinks": "Other links",
+    "areYouBothered": "Does something bother you, amuse you or irritate you?",
+    "sendComment": "Send the author a comment",
+    "fullName": "Full name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "cancel": "Cancel"
 }

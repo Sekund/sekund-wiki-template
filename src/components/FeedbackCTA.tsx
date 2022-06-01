@@ -3,6 +3,10 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ChatIcon } from '@heroicons/react/outline';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import LoadingSpin from 'react-loading-spin';
+
+import i18nConfig from '@/i18n.config';
 
 type Props = {
   noteId: string;
@@ -16,11 +20,16 @@ type IFormInput = {
 };
 
 export default function FeedbackCTA({ noteId }: Props) {
-  // const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
+  const { t } = useTranslation(['common'], { i18n: i18nConfig });
   const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
   const { register, handleSubmit, reset } = useForm<IFormInput>();
 
   const onSubmit = handleSubmit(async (data) => {
+    if (busy) {
+      return;
+    }
+    setBusy(true);
     const res = await fetch('/api/addWebComment', {
       body: JSON.stringify(data),
       headers: {
@@ -29,6 +38,7 @@ export default function FeedbackCTA({ noteId }: Props) {
       method: 'POST',
     });
 
+    setBusy(false);
     if (res.status === 200) {
       setOpen(false);
       reset();
@@ -83,7 +93,7 @@ export default function FeedbackCTA({ noteId }: Props) {
                       />
                       <div>
                         <label htmlFor="full-name" className="sr-only">
-                          Full name
+                          {t('fullName')}
                         </label>
                         <input
                           type="text"
@@ -91,12 +101,12 @@ export default function FeedbackCTA({ noteId }: Props) {
                           {...register('fullName', { required: true })}
                           autoComplete="name"
                           className="block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-md shadow-sm"
-                          placeholder="Full name"
+                          placeholder={t('fullName')}
                         />
                       </div>
                       <div>
                         <label htmlFor="email" className="sr-only">
-                          Email (optional)
+                          {t('email')}
                         </label>
                         <input
                           id="email"
@@ -104,19 +114,19 @@ export default function FeedbackCTA({ noteId }: Props) {
                           type="email"
                           autoComplete="email"
                           className="block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-md shadow-sm"
-                          placeholder="Email"
+                          placeholder={t('email')}
                         />
                       </div>
                       <div>
                         <label htmlFor="message" className="sr-only">
-                          Message
+                          {t('message')}
                         </label>
                         <textarea
                           id="message"
                           {...register('message', { required: true })}
                           rows={4}
                           className="block w-full px-4 py-3 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm"
-                          placeholder="Message"
+                          placeholder={t('message')}
                           defaultValue={''}
                         />
                       </div>
@@ -125,13 +135,22 @@ export default function FeedbackCTA({ noteId }: Props) {
                           type="submit"
                           className="inline-flex justify-center px-6 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-500 hover:bg-primary-700 ring-primary-900 hover:ring-2 hover:ring-offset-2 "
                         >
-                          Send
+                          {busy ? (
+                            <LoadingSpin
+                              size="1.5rem"
+                              width="3px"
+                              primaryColor="#ccc"
+                              secondaryColor="transparent"
+                            />
+                          ) : (
+                            <span>{t('send')}</span>
+                          )}
                         </button>
                         <button
                           onClick={() => setOpen(false)}
                           className="inline-flex justify-center px-6 py-3 text-base font-medium text-white bg-gray-500 border border-transparent rounded-md shadow-sm hover:bg-gray-700 ring-gray-900 hover:ring-2 hover:ring-offset-2 "
                         >
-                          Cancel
+                          {t('cancel')}
                         </button>
                       </div>
                     </form>
@@ -145,10 +164,7 @@ export default function FeedbackCTA({ noteId }: Props) {
       <div className="sm:rounded-lg sekund-content">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex justify-center mt-2 text-gray-500 text">
-            <p className="max-w-xl text-center ">
-              Y a-t-il quelque chose qui vous heurte, vous amuse ou vous agace
-              dans cet article?
-            </p>
+            <p className="max-w-xl text-center ">{t('areYouBothered')}</p>
           </div>
           <div className="flex justify-center mt-5">
             <button
@@ -157,7 +173,7 @@ export default function FeedbackCTA({ noteId }: Props) {
               className="inline-flex items-center px-4 py-2 space-x-1 font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:text-sm"
             >
               <ChatIcon className="w-6 h-6" />
-              <span>Envoyer un commentaire à l&apos;auteur</span>
+              <span>{t('sendComment')}</span>
             </button>
           </div>
         </div>
