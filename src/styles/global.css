@@ -67,6 +67,10 @@ h5 {
   @apply px-4 sm:px-6 lg:px-8
 }
 
+.sekund-header h1, .sekund-header h2 {
+  padding-left: 0;
+}
+
 .sekund-content ol, blockquote {
   @apply mx-auto border-none
 }
@@ -75,4 +79,50 @@ h5 {
 .building {
   background-image: linear-gradient(135deg, #d55268 25%, #e6ccce 25%, #e6ccce 50%, #d55268 50%, #d55268 75%, #e6ccce 75%, #e6ccce 100%);
   background-size: 14.14px 14.14px;
+}
+
+.quote {
+  @apply leading-tight;
+  color: var(--tw-prose-headings);
+  width: 65%;
+  padding: 0.5rem 1rem 0rem 0;
+  font-family: 'Philosopher';
+  font-size: 125%;
+  float: left;
+  display: block;
+  margin-left: -.33rem;
+}
+.quote::before {
+  content: '“';
+}
+.quote::after {
+  content: '”';
+}
+
+.quote.right {
+  float: right;
+  margin-right: -.33rem;
+  padding: 0.5rem 0rem 0rem 1rem;
+  margin-left: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .quote {
+    padding: 0.75rem 1rem 0rem 0;
+    font-size: 150%;
+    margin-left: -1.75rem;
+  }
+  .quote.right {
+    padding: 0.75rem 0rem .5rem 0;
+    font-size: 150%;
+    margin-right: -1.75rem;
+    margin-left: 1rem;
+  }
+  
+}
+
+.sekund-subtitle {
+  @apply my-6 leading-tight;
+  font-family: 'Philosopher';
+  font-size: 130%;
 }

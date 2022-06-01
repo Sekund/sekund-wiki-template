@@ -11,6 +11,7 @@ type Props = {
   linkedInPage?: string;
   personalPage?: string;
   title: string;
+  subtitle?: string;
   date: number;
 };
 
@@ -21,6 +22,7 @@ export default function PostMetadata({
   linkedInPage,
   personalPage,
   title,
+  subtitle,
   date,
 }: Props) {
   const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
@@ -63,6 +65,7 @@ export default function PostMetadata({
           })}
         </time>
       </div>
+      <h2 className="sekund-subtitle">{subtitle}</h2>
     </div>
   );
 }

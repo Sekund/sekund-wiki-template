@@ -1,14 +1,12 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext } from 'react';
+import React from 'react';
 
 import fm from 'front-matter';
-import { Embed } from 'hyvor-talk-react';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { duotoneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import readingTime from 'reading-time';
@@ -16,9 +14,8 @@ import remarkGfm from 'remark-gfm';
 import slugify from 'slugify';
 
 import { transformLinks, transformInclusions } from '@/common/markdown-utils';
+import FeedbackCTA from '@/components/FeedbackCTA';
 import PostMetadata from '@/components/PostMetadata';
-import { DarkModeContext } from '@/components/ThemedApp';
-import i18nConfig from '@/i18n.config';
 import Layout from '@/layout/Layout';
 
 import { logIn } from '../../../common/utils';
@@ -34,6 +31,7 @@ type PostedNoteProps = {
   imageUrl: string;
   category: string;
   title: string;
+  subtitle?: string;
   description: string;
   author: string;
   source: MDXRemoteSerializeResult<Record<string, unknown>>;
@@ -47,7 +45,6 @@ type PostedNoteProps = {
   twitterHandle?: string;
   linkedInPage?: string;
   personalPage?: string;
-  HYVOR_TALK_WEBSITE_ID: number;
 };
 
 type CodeProps = {
@@ -60,6 +57,7 @@ type DependencyProps = {
 
 export function PostedNote({
   title,
+  subtitle,
   description,
   url,
   imageUrl,
@@ -72,31 +70,7 @@ export function PostedNote({
   userName,
   linkedInPage,
   personalPage,
-  HYVOR_TALK_WEBSITE_ID,
 }: PostedNoteProps) {
-  const darkPalette = {
-    accent: '#f9fafb',
-    accentText: '#000',
-    footerHeader: 'rgb(26 32 44)',
-    footerHeaderText: '#cac7c7',
-    box: 'rgb(26 32 44)',
-    boxText: '#f9fafb',
-    boxLightText: '#aaaaaa',
-    backgroundText: '#ffffff',
-  };
-  const lightPalette = {
-    accent: '#1a202c',
-    accentText: '#f9fafb',
-    footerHeader: '#f9fafb',
-    footerHeaderText: '#4a5568',
-    box: '#f9fafb',
-    boxText: '#4a5568',
-    boxLightText: '#aaaaaa',
-    backgroundText: '#ffffff',
-  };
-  const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
-  const { darkMode } = useContext(DarkModeContext);
-
   const Inclusion = ({ src }: DependencyProps) => {
     if (src.match(/(.)*(.jpg|.jpeg|.gif|.png)/)) {
       let image = src;
@@ -117,7 +91,7 @@ export function PostedNote({
               src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/assets/${image}`}
             />
             <div
-              className="text-sm italic absolute left-4 sm:left-6 lg:left-8 bottom-6 text-white align-left leading-snug"
+              className="absolute text-sm italic leading-snug text-white left-4 sm:left-6 lg:left-8 bottom-6 align-left"
               style={{ width: '75%' }}
             >
               {caption}
@@ -191,6 +165,7 @@ export function PostedNote({
             <PostMetadata
               {...{
                 title,
+                subtitle,
                 userName,
                 avatarImage,
                 date,
@@ -227,17 +202,7 @@ export function PostedNote({
       <Layout>
         <div className="flex flex-col">
           <Content />
-          {HYVOR_TALK_WEBSITE_ID ? (
-            <div className="p-2">
-              <Embed
-                websiteId={HYVOR_TALK_WEBSITE_ID}
-                id={noteId}
-                title={title}
-                palette={darkMode ? darkPalette : lightPalette}
-                language={i18n.language}
-              />
-            </div>
-          ) : null}
+          <FeedbackCTA {...{ noteId, title }} />
         </div>
       </Layout>
     </>
@@ -271,7 +236,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { DECK_DOMAIN, GROUP_ID, HYVOR_TALK_WEBSITE_ID } = process.env;
+  const { DECK_DOMAIN, GROUP_ID } = process.env;
   const { noteId } = params as unknown as any;
   const client = await logIn();
 
@@ -286,6 +251,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (atts.title) {
     title = atts.title;
   }
+  const { subtitle } = atts;
 
   const { imageUrl, description } = atts;
   const { body } = content;
@@ -311,6 +277,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       title,
+      subtitle: subtitle || null,
       noteId: fullNote._id.toString(),
       userId: client.customData._id,
       source: mdxSource,
@@ -320,7 +287,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       atts,
       imageUrl: encodeURI(imageUrl) || null,
       description: description || null,
-      HYVOR_TALK_WEBSITE_ID: HYVOR_TALK_WEBSITE_ID || null,
       twitterHandle: fullNote.user.twitterHandle || null,
       linkedInPage: fullNote.user.linkedInPage || null,
       personalPage: fullNote.user.personalPage || null,
