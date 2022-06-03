@@ -18,7 +18,7 @@ import FeedbackCTA from '@/components/FeedbackCTA';
 import PostMetadata from '@/components/PostMetadata';
 import Layout from '@/layout/Layout';
 
-import { logIn } from '../../../common/utils';
+import { getHeaderSource, logIn } from '../../../common/utils';
 import { BrokenLink } from '../../../components/links/BrokenLink';
 import { ExternalLink } from '../../../components/links/ExternalLink';
 import { LeafLink } from '../../../components/links/LeafLink';
@@ -35,6 +35,7 @@ type PostedNoteProps = {
   description: string;
   author: string;
   source: MDXRemoteSerializeResult<Record<string, unknown>>;
+  headerSource?: MDXRemoteSerializeResult<Record<string, unknown>>;
   date: number;
   rTime: string;
   url: string;
@@ -63,6 +64,7 @@ export function PostedNote({
   imageUrl,
   twitterHandle,
   source,
+  headerSource,
   date,
   noteId,
   userId,
@@ -199,7 +201,7 @@ export function PostedNote({
   return (
     <>
       <SocialMetatags />
-      <Layout>
+      <Layout headerSource={headerSource}>
         <div className="flex flex-col">
           <Content />
           <FeedbackCTA {...{ noteId, title }} />
@@ -274,6 +276,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
   );
 
+  const headerSource = await getHeaderSource(client, notes);
+
   return {
     props: {
       title,
@@ -292,6 +296,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       personalPage: fullNote.user.personalPage || null,
       avatarImage: fullNote.user.image,
       userName: fullNote.user.name,
+      headerSource: headerSource || null,
     },
     revalidate: 10,
   };

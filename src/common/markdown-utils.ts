@@ -44,7 +44,11 @@ export function transformHyperlinks(md: string): string {
   return md;
 }
 
-export function transformWikiLinks(md: string, wikiNotes: Note[]): string {
+export function transformWikiLinks(
+  md: string,
+  wikiNotes: Note[],
+  simple = false
+): string {
   const links = [...md.matchAll(wikiLinkRe)];
 
   if (links && links.length > 0) {
@@ -59,7 +63,14 @@ export function transformWikiLinks(md: string, wikiNotes: Note[]): string {
         const note = pathToNote(path, wikiNotes);
         if (note) {
           const { attributes } = fm(note.content);
-          if (attributes && (attributes as any).maturity) {
+          if (simple) {
+            replaced = replaced.replace(
+              `${wikiLink}`,
+              `<Link href="/${note._id}/${slugify(
+                note.path.replace('.md', '')
+              )}">${label}</Link>`
+            );
+          } else if (attributes && (attributes as any).maturity) {
             const maturity = (attributes as any).maturity as number;
             if (maturity <= 0) {
               replaced = replaced.replace(
@@ -122,6 +133,10 @@ export function transformWikiLinks(md: string, wikiNotes: Note[]): string {
     return replaced;
   }
   return md;
+}
+
+export function transformSimpleLinks(md: string, wikiNotes: Note[]): string {
+  return transformWikiLinks(md, wikiNotes, true);
 }
 
 export function transformLinks(md: string, wikiNotes: Note[]): string {

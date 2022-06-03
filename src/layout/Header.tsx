@@ -3,13 +3,18 @@ import { Fragment } from 'react';
 
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import Link from 'next/link';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Header() {
+type Props = {
+  headerSource?: MDXRemoteSerializeResult<Record<string, unknown>>;
+};
+
+export default function Header({ headerSource }: Props) {
   return (
     <Popover className="sticky top-0 z-10">
       <div className="max-w-6xl mx-auto dark:bg-gray-900 bg-gray-50 sm:px-6">
@@ -66,29 +71,16 @@ export default function Header() {
               )}
             </Popover>
 
-            {/* <a
-              className="text-base font-medium text-gray-500 capitalize hover:text-gray-900"
-              key={'Contribute'}
-              href={'value'}
-            >
-              {'Table of Contents'}
-            </a>
-
-            <a
-              className="text-base font-medium text-gray-500 capitalize hover:text-gray-900"
-              key={'Contribute'}
-              href={'value'}
-            >
-              {'Discuss'}
-            </a>
-
-            <a
-              className="text-base font-medium text-gray-500 capitalize hover:text-gray-900"
-              key={'Contribute'}
-              href={'value'}
-            >
-              {'Contribute'}
-            </a> */}
+            {headerSource ? (
+              <div className="text-gray-500 dark:text-gray-200">
+                <MDXRemote
+                  {...headerSource}
+                  components={{
+                    Link,
+                  }}
+                />
+              </div>
+            ) : null}
 
             <Popover className="relative">
               {({ open }) => (
@@ -190,28 +182,16 @@ export default function Header() {
               </div>
             </div>
             <div className="px-5 py-6 space-y-6">
-              {/* <div className="flex justify-evenly">
-                <a
-                  href="#"
-                  className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-700"
-                >
-                  Table of Contents
-                </a>
-
-                <a
-                  href="#"
-                  className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-700"
-                >
-                  Discuss
-                </a>
-
-                <a
-                  href="#"
-                  className="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-700"
-                >
-                  Contribute
-                </a>
-              </div> */}
+              {headerSource ? (
+                <div className="text-gray-700 dark:text-gray-200">
+                  <MDXRemote
+                    {...headerSource}
+                    components={{
+                      Link,
+                    }}
+                  />
+                </div>
+              ) : null}
               {/* <div>
                 <a
                   href="#"

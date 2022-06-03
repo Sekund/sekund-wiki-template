@@ -10,7 +10,7 @@ import PostMetadata from '@/components/PostMetadata';
 import Layout from '@/layout/Layout';
 
 import { transformLinks } from '../common/markdown-utils';
-import { logIn } from '../common/utils';
+import { getHeaderSource, logIn } from '../common/utils';
 import { BrokenLink } from '../components/links/BrokenLink';
 import { ExternalLink } from '../components/links/ExternalLink';
 import { LeafLink } from '../components/links/LeafLink';
@@ -27,6 +27,7 @@ type NoteProps = {
   title: string;
   description: string;
   source: MDXRemoteSerializeResult;
+  headerSource: MDXRemoteSerializeResult;
   url: string;
   noteId: string;
   userId: string;
@@ -100,6 +101,7 @@ export const getStaticProps: GetStaticProps = async () => {
     title = atts.title;
   }
   const mdxSource = await serialize(transformLinks(body, notes));
+  const headerSource = await getHeaderSource(client, notes);
   return {
     props: {
       title,
@@ -113,6 +115,7 @@ export const getStaticProps: GetStaticProps = async () => {
       personalPage: fullNote.user.personalPage || null,
       avatarImage: fullNote.user.image,
       userName: fullNote.user.name,
+      headerSource: headerSource || null,
     },
     revalidate: 10,
   };
@@ -120,7 +123,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function HubPage(props: NoteProps) {
   return (
-    <Layout>
+    <Layout headerSource={props.headerSource}>
       <Card {...props} />
     </Layout>
   );

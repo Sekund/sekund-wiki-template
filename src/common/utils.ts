@@ -1,4 +1,10 @@
+import fm from 'front-matter';
+import { serialize } from 'next-mdx-remote/serialize';
 import * as Realm from 'realm-web';
+import remarkGfm from 'remark-gfm';
+
+import { transformSimpleLinks } from '@/common/markdown-utils';
+import { Note } from '@/domain/Note';
 
 export async function logIn() {
   if (process.env.SEKUND_USER_ID && process.env.SEKUND_USER_PASSWORD) {
@@ -26,4 +32,21 @@ export function makeid(length: number) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+export async function getHeaderSource(client: Realm.User, notes: Note[]) {
+  let headerSource;
+  if (process.env.HEADER_LINKS) {
+    const headerNote = await client.functions.callFunction(
+      'getNoteByPath',
+      process.env.HEADER_LINKS
+    );
+    const headerBody = fm(headerNote.content).body;
+    headerSource = await serialize(transformSimpleLinks(headerBody, notes), {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+      },
+    });
+  }
+  return headerSource;
 }
