@@ -287,7 +287,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       source: mdxSource,
       date: fullNote.created,
       rTime,
-      url: `${DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
+      url: `https://${DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
+        title
+      )}`,
       atts,
       imageUrl: encodeURI(imageUrl) || null,
       description: description || null,

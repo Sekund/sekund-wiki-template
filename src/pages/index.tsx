@@ -108,7 +108,9 @@ export const getStaticProps: GetStaticProps = async () => {
       noteId: fullNote._id.toString(),
       userId: client.customData._id,
       source: mdxSource,
-      url: `${DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(title)}`,
+      url: `https://${DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
+        title
+      )}`,
       date: fullNote.created,
       twitterHandle: fullNote.user.twitterHandle || null,
       linkedInPage: fullNote.user.linkedInPage || null,
