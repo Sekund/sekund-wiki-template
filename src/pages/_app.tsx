@@ -24,9 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       Fathom.trackPageview();
     }
 
-    if (process.env.FATHOM_TRACKING_CODE) {
-      Fathom.load(process.env.FATHOM_TRACKING_CODE, {
-        includedDomains: [process.env.DECK_DOMAIN!!],
+    if (process.env.NEXT_PUBLIC_FATHOM_TRACKING_CODE) {
+      Fathom.load(process.env.NEXT_PUBLIC_FATHOM_TRACKING_CODE, {
+        includedDomains: [process.env.NEXT_PUBLIC_DECK_DOMAIN!!],
       });
 
       // Record a pageview when route changes

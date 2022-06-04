@@ -238,7 +238,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { DECK_DOMAIN, GROUP_ID } = process.env;
+  const { NEXT_PUBLIC_DECK_DOMAIN, GROUP_ID } = process.env;
   const { noteId } = params as unknown as any;
   const client = await logIn();
 
@@ -287,7 +287,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       source: mdxSource,
       date: fullNote.created,
       rTime,
-      url: `https://${DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
+      url: `https://${NEXT_PUBLIC_DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
         title
       )}`,
       atts,

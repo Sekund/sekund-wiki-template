@@ -19,7 +19,7 @@ import { SeedLink } from '../components/links/SeedLink';
 import { WiltLink } from '../components/links/WiltLink';
 import { Note } from '../domain/Note';
 
-const { DECK_DOMAIN, GROUP_ID } = process.env;
+const { NEXT_PUBLIC_DECK_DOMAIN, GROUP_ID } = process.env;
 
 type NoteProps = {
   imageUrl: string;
@@ -108,7 +108,7 @@ export const getStaticProps: GetStaticProps = async () => {
       noteId: fullNote._id.toString(),
       userId: client.customData._id,
       source: mdxSource,
-      url: `https://${DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
+      url: `https://${NEXT_PUBLIC_DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
         title
       )}`,
       date: fullNote.created,
