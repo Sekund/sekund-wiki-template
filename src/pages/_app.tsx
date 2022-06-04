@@ -13,7 +13,6 @@ import '../styles/global.css';
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
     // Initialize Fathom when the app loads
     // Example: yourdomain.com
@@ -38,6 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         router.events.off('routeChangeComplete', onRouteChangeComplete);
       };
     }
+    return () => {};
   }, [router.events]);
 
   return (
