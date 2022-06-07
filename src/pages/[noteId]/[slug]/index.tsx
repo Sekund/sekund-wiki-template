@@ -171,6 +171,7 @@ export function PostedNote({
                 userName,
                 avatarImage,
                 date,
+                url,
                 twitterHandle,
                 linkedInPage,
                 personalPage,

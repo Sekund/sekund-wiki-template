@@ -1,4 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import {
+  FacebookIcon,
+  TwitterIcon as TwitterShareIcon,
+  LinkedinIcon,
+  FacebookShareButton,
+  LinkedinShareButton,
+  EmailShareButton,
+  EmailIcon,
+  TwitterShareButton,
+} from 'react-share';
 
 import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
 import { TwitterIcon } from '@/components/icons/TwitterIcon';
@@ -13,6 +23,7 @@ type Props = {
   title: string;
   subtitle?: string;
   date: number;
+  url?: string;
 };
 
 export default function PostMetadata({
@@ -23,6 +34,7 @@ export default function PostMetadata({
   personalPage,
   title,
   subtitle,
+  url,
   date,
 }: Props) {
   const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
@@ -66,6 +78,22 @@ export default function PostMetadata({
         </time>
       </div>
       <h2 className="sekund-subtitle">{subtitle}</h2>
+      {url ? (
+        <div className="flex space-x-1">
+          <FacebookShareButton url={url}>
+            <FacebookIcon round size="2rem" />
+          </FacebookShareButton>
+          <LinkedinShareButton url={url}>
+            <LinkedinIcon round size="2rem" />
+          </LinkedinShareButton>
+          <EmailShareButton url={url}>
+            <EmailIcon round size="2rem" />
+          </EmailShareButton>
+          <TwitterShareButton url={url}>
+            <TwitterShareIcon round size="2rem" />
+          </TwitterShareButton>
+        </div>
+      ) : null}
     </div>
   );
 }
