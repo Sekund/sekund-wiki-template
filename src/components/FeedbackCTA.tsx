@@ -25,6 +25,9 @@ export default function FeedbackCTA({ noteId }: Props) {
   const [busy, setBusy] = useState(false);
   const { register, handleSubmit, reset } = useForm<IFormInput>();
 
+  const feedbackInvite =
+    process.env.NEXT_PUBLIC_FEEDBACK_INVITE || t('areYouBothered');
+
   const onSubmit = handleSubmit(async (data) => {
     if (busy) {
       return;
@@ -164,7 +167,7 @@ export default function FeedbackCTA({ noteId }: Props) {
       <div className="sm:rounded-lg sekund-content">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex justify-center mt-2 text-gray-500 text">
-            <p className="max-w-xl text-center ">{t('areYouBothered')}</p>
+            <p className="max-w-xl text-center ">{feedbackInvite}</p>
           </div>
           <div className="flex justify-center mt-5">
             <button
