@@ -5,6 +5,7 @@ import fm from 'front-matter';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -161,41 +162,53 @@ export function PostedNote({
 
   function Content() {
     return (
-      <div className="py-8 overflow-hidden bg-white-4 dark:bg-gray-4">
-        <div className="sekund-content">
-          <div className="mx-auto prose prose-lg dark:prose-invert max-w-prose sekund-header">
-            <PostMetadata
-              {...{
-                title,
-                subtitle,
-                userName,
-                avatarImage,
-                date,
-                url,
-                twitterHandle,
-                linkedInPage,
-                personalPage,
-              }}
-            />
-          </div>
-          <div className="p-0 mx-auto mt-6 prose prose-lg dark:prose-invert dark:prose-dark max-w-prose ">
-            <MDXRemote
-              {...source}
-              components={{
-                Code,
-                Inclusion,
-                Link,
-                SeedLink,
-                SeedlingLink,
-                LeafLink,
-                WiltLink,
-                BrokenLink,
-                ExternalLink,
-              }}
-            />
+      <>
+        <NextSeo
+          title={title}
+          description={subtitle}
+          openGraph={{
+            title,
+            description: subtitle,
+            locale: process.env.NEXT_PUBLIC_LOCALE,
+            site_name: process.env.NEXT_PUBLIC_SITE_NAME,
+          }}
+        />
+        <div className="py-8 overflow-hidden bg-white-4 dark:bg-gray-4">
+          <div className="sekund-content">
+            <div className="mx-auto prose prose-lg dark:prose-invert max-w-prose sekund-header">
+              <PostMetadata
+                {...{
+                  title,
+                  subtitle,
+                  userName,
+                  avatarImage,
+                  date,
+                  url,
+                  twitterHandle,
+                  linkedInPage,
+                  personalPage,
+                }}
+              />
+            </div>
+            <div className="p-0 mx-auto mt-6 prose prose-lg dark:prose-invert dark:prose-dark max-w-prose ">
+              <MDXRemote
+                {...source}
+                components={{
+                  Code,
+                  Inclusion,
+                  Link,
+                  SeedLink,
+                  SeedlingLink,
+                  LeafLink,
+                  WiltLink,
+                  BrokenLink,
+                  ExternalLink,
+                }}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 
