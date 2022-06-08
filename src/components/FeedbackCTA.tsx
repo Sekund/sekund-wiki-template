@@ -164,7 +164,7 @@ export default function FeedbackCTA({ noteId }: Props) {
           </div>
         </Dialog>
       </Transition.Root>
-      <div className="sm:rounded-lg sekund-content">
+      <div className="sm:rounded-lg max-w-lg mx-auto">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex justify-center mt-2 text-gray-500 text">
             <p className="max-w-xl text-center ">{feedbackInvite}</p>
