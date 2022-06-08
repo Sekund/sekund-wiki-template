@@ -24,11 +24,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       Fathom.trackPageview();
     }
 
-    if (process.env.NEXT_PUBLIC_FATHOM_TRACKING_CODE) {
+    if (
+      process.env.NEXT_PUBLIC_FATHOM_TRACKING_CODE &&
+      process.env.NEXT_PUBLIC_FATHOM_CUSTOM_DOMAIN
+    ) {
       Fathom.load(process.env.NEXT_PUBLIC_FATHOM_TRACKING_CODE, {
-        includedDomains: [process.env.NEXT_PUBLIC_DECK_DOMAIN!!],
+        url: `https://${process.env.NEXT_PUBLIC_FATHOM_CUSTOM_DOMAIN}/script.js`,
       });
-
       // Record a pageview when route changes
       router.events.on('routeChangeComplete', onRouteChangeComplete);
 
