@@ -4,14 +4,11 @@
 
 @tailwind utilities;
 
-.icon-link {
-  @apply overflow-hidden;
+@media (max-width: 400px) {
+  .icon-link-label {
+    max-width: 18ch;
+  }
 }
-
-.icon-link span {
-  @apply truncate
-}
-
 
 .icon-link::after {
   @apply border-current border-b;

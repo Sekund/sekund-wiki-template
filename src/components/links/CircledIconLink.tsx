@@ -26,14 +26,16 @@ const CircledIconLink = ({ label, href, children, target }: LinkProps) => {
   function Widget() {
     return (
       <a
-        className={`relative inline-flex space-x-1 cursor-pointer icon-link no-underline`}
+        className={`relative inline-flex space-x-1 cursor-pointer icon-link no-underline overflow-hidden`}
         href={href}
         onMouseOver={() => toggleHighlight(true)}
         onMouseLeave={() => toggleHighlight(false)}
         target={target}
         style={{ color }}
       >
-        <span style={{ color }}>{label}</span>
+        <span className="truncate icon-link-label" style={{ color }}>
+          {label}
+        </span>
         <span
           className={`flex flex-col items-center justify-center border rounded-full`}
           style={{ width: '1.5em', height: '1.5em', borderColor: color }}
