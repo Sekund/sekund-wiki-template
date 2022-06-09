@@ -79,7 +79,7 @@ export default function PostMetadata({
         ) : null}
         {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
         {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
-        <span>{' • '}</span>
+        <span>•</span>
         <time className="dark:text-gray-400 text-gray-600 truncate">
           {new Date(date).toLocaleDateString(i18n.language, {
             month: 'long',
@@ -87,8 +87,8 @@ export default function PostMetadata({
             year: '2-digit',
           })}
         </time>
-        <span className="md:block hidden">
-          <span>{' •'}</span>
+        <span className="md:inline-flex hidden items-center">
+          <span>•</span>
           <ReadingTime />
         </span>
       </div>
