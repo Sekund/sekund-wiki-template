@@ -1,3 +1,5 @@
+import { ClockIcon } from '@heroicons/react/outline';
+import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import {
   FacebookIcon,
@@ -22,6 +24,7 @@ type Props = {
   personalPage?: string;
   title: string;
   subtitle?: string;
+  minutes?: number;
   date: number;
   url?: string;
 };
@@ -34,10 +37,19 @@ export default function PostMetadata({
   personalPage,
   title,
   subtitle,
+  minutes,
   url,
   date,
 }: Props) {
   const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
+
+  const ReadingTime = () => (
+    <div className="pl-2 inline-flex items-center dark:text-gray-400 text-gray-600 space-x-1">
+      <ClockIcon className="w-4 h-4" />
+      <span>{t('readingTime', { val: minutes })}</span>
+    </div>
+  );
+
   return (
     <div className="block mb-8">
       <h1 className="mb-4">
@@ -68,16 +80,21 @@ export default function PostMetadata({
         {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
         {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
         <span>{' • '}</span>
-
-        <time className="text-gray-600 truncate">
+        <time className="dark:text-gray-400 text-gray-600 truncate">
           {new Date(date).toLocaleDateString(i18n.language, {
             month: 'long',
             day: 'numeric',
             year: '2-digit',
           })}
         </time>
+        <span className="md:block hidden">
+          <span>{' •'}</span>
+          <ReadingTime />
+        </span>
       </div>
-      <h2 className="sekund-subtitle">{subtitle}</h2>
+      <h2 className="sekund-subtitle">
+        <span>{subtitle} </span>
+      </h2>
       {url ? (
         <div className="flex space-x-1">
           <FacebookShareButton url={url}>
@@ -92,6 +109,9 @@ export default function PostMetadata({
           <TwitterShareButton url={url}>
             <TwitterShareIcon round size="2rem" />
           </TwitterShareButton>
+          <span className="md:hidden">
+            <ReadingTime />
+          </span>
         </div>
       ) : null}
     </div>

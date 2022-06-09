@@ -136,3 +136,43 @@ h5 {
   float: left;
   line-height: 1;
 }
+
+.sekund-insert {
+  @apply mx-4 sm:mx-6 lg:mx-8 p-4 leading-snug;
+  border: 1px solid;
+  display: block;
+}
+
+.sekund-insert-caption {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 85%;
+}
+
+.sekund-insert img {
+  margin: 0
+}
+
+.sekund-insert p {
+  margin: 0;
+  padding: 0;
+}
+
+
+@media (min-width: 1024px) {
+  .sekund-insert {
+    @apply flex flex-col space-y-2;
+    float: left;
+    width: 50%;
+    border: 1px solid;
+    padding: 1rem;
+    display: block;
+  }
+
+  .sekund-insert.right {
+    float: right;
+    margin-left: 1rem;
+  }
+
+
+}

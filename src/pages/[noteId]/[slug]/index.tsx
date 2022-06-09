@@ -38,7 +38,7 @@ type PostedNoteProps = {
   source: MDXRemoteSerializeResult<Record<string, unknown>>;
   headerSource?: MDXRemoteSerializeResult<Record<string, unknown>>;
   date: number;
-  rTime: string;
+  minutes: number;
   url: string;
   noteId: string;
   userId: string;
@@ -73,6 +73,7 @@ export function PostedNote({
   userName,
   linkedInPage,
   personalPage,
+  minutes,
 }: PostedNoteProps) {
   const Inclusion = ({ src }: DependencyProps) => {
     if (src.match(/(.)*(.jpg|.jpeg|.gif|.png)/)) {
@@ -180,6 +181,7 @@ export function PostedNote({
                 {...{
                   title,
                   subtitle,
+                  minutes,
                   userName,
                   avatarImage,
                   date,
@@ -260,7 +262,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const content = fm(fullNote.content);
   const readingStats = readingTime(content.body);
   const minutes = Math.round(readingStats.minutes);
-  const rTime = `${minutes > 1 ? `${minutes} minutes` : 'less than a minute'}`;
 
   let title = fullNote.title.replace('.md', '');
   const atts = content.attributes as any;
@@ -300,7 +301,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       userId: client.customData._id,
       source: mdxSource,
       date: fullNote.created,
-      rTime,
+      minutes,
       url: `https://${NEXT_PUBLIC_DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
         title
       )}`,

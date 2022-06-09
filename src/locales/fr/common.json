@@ -7,5 +7,6 @@
     "email": "Adresse mail",
     "message": "Message",
     "send": "Envoyer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "readingTime": "{{val, number}} min."
 }
