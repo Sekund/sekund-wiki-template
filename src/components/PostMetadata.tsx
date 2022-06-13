@@ -43,13 +43,13 @@ export default function PostMetadata({
 }: Props) {
   const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
 
-  const ReadingTime = () => (
-    <div className="pl-2 inline-flex items-center dark:text-gray-400 text-gray-600 space-x-1">
-      <ClockIcon className="w-4 h-4" />
-      <span>{t('readingTime', { val: minutes })}</span>
-    </div>
-  );
-
+  const ReadingTime = () =>
+    minutes ? (
+      <div className="pl-2 inline-flex items-center dark:text-gray-400 text-gray-600 space-x-1">
+        <ClockIcon className="w-4 h-4" />
+        <span>{t('readingTime', { val: minutes })}</span>
+      </div>
+    ) : null;
   return (
     <div className="block mb-8">
       <h1 className="mb-4">
@@ -87,10 +87,12 @@ export default function PostMetadata({
             year: '2-digit',
           })}
         </time>
-        <span className="md:inline-flex hidden items-center">
-          <span>•</span>
-          <ReadingTime />
-        </span>
+        {minutes ? (
+          <span className="md:inline-flex hidden items-center">
+            <span>•</span>
+            <ReadingTime />
+          </span>
+        ) : null}
       </div>
       <h2 className="sekund-subtitle">
         <span>{subtitle} </span>
