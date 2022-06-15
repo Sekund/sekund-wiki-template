@@ -6,6 +6,7 @@ import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
+import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -47,6 +48,7 @@ type PostedNoteProps = {
   twitterHandle?: string;
   linkedInPage?: string;
   personalPage?: string;
+  notFound?: boolean;
 };
 
 type CodeProps = {
@@ -74,6 +76,7 @@ export function PostedNote({
   linkedInPage,
   personalPage,
   minutes,
+  notFound,
 }: PostedNoteProps) {
   const Inclusion = ({ src }: DependencyProps) => {
     if (src.match(/(.)*(.jpg|.jpeg|.gif|.png)/)) {
@@ -214,7 +217,14 @@ export function PostedNote({
     );
   }
 
-  return (
+  return notFound ? (
+    <>
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <DefaultErrorPage statusCode={404} />
+    </>
+  ) : (
     <>
       <SocialMetatags />
       <Layout headerSource={headerSource}>
@@ -229,11 +239,15 @@ export function PostedNote({
 
 export default PostedNote;
 
+function isSekundPublic(domain: string | undefined): boolean {
+  return domain === 'public.sekund.org';
+}
+
 export async function getStaticPaths() {
-  const { GROUP_ID } = process.env;
+  const { NEXT_PUBLIC_DECK_DOMAIN, GROUP_ID } = process.env;
   const client = await logIn();
   const notes: Note[] = await client.functions.callFunction(
-    'groupNotes',
+    isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) ? 'publicNotes' : 'groupNotes',
     GROUP_ID
   );
   const paths = notes.map((note) => {
@@ -259,6 +273,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const client = await logIn();
 
   const fullNote = await client.functions.callFunction('getNote', noteId);
+
+  if (isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) && !fullNote.hasPublicLink) {
+    return {
+      props: {
+        notFound: true,
+      },
+    };
+  }
+
   const content = fm(fullNote.content);
   const readingStats = readingTime(content.body);
   const minutes = Math.round(readingStats.minutes);
