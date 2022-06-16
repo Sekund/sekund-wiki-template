@@ -296,7 +296,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { imageUrl, description } = atts;
   const { body } = content;
   const notes: Note[] = await client.functions.callFunction(
-    'groupNotes',
+    isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) ? 'publicNotes' : 'groupNotes',
     GROUP_ID
   );
 
