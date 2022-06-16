@@ -274,7 +274,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const fullNote = await client.functions.callFunction('getNote', noteId);
 
-  if (isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) && !fullNote.hasPublicLink) {
+  if (
+    !fullNote ||
+    (isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) && !fullNote.hasPublicLink)
+  ) {
     return {
       props: {
         notFound: true,
