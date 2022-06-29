@@ -67,7 +67,7 @@ export function transformWikiLinks(
             replaced = replaced.replace(
               `${wikiLink}`,
               `<Link href="/${note._id}/${slugify(
-                note.title.replace('.md', '')
+                note.title.replace('.md', '').toLowerCase()
               )}">${label}</Link>`
             );
           } else if (attributes && (attributes as any).maturity) {
@@ -76,7 +76,7 @@ export function transformWikiLinks(
               replaced = replaced.replace(
                 `${wikiLink}`,
                 `<WiltLink href="/${note._id}/${slugify(
-                  note.title.replace('.md', '')
+                  note.title.replace('.md', '').toLowerCase()
                 )}" label="${label}"/>`
               );
             }
@@ -85,7 +85,7 @@ export function transformWikiLinks(
                 replaced = replaced.replace(
                   `${wikiLink}`,
                   `<SeedLink href="/${note._id}/${slugify(
-                    note.title.replace('.md', '')
+                    note.title.replace('.md', '').toLowerCase()
                   )}" label="${label}"/>`
                 );
                 break;
@@ -93,7 +93,7 @@ export function transformWikiLinks(
                 replaced = replaced.replace(
                   `${wikiLink}`,
                   `<SeedlingLink href="/${note._id}/${slugify(
-                    note.title.replace('.md', '')
+                    note.title.replace('.md', '').toLowerCase()
                   )}" label="${label}"/>`
                 );
                 break;
@@ -101,7 +101,7 @@ export function transformWikiLinks(
                 replaced = replaced.replace(
                   `${wikiLink}`,
                   `<LeafLink href="/${note._id}/${slugify(
-                    note.title.replace('.md', '')
+                    note.title.replace('.md', '').toLowerCase()
                   )}" label="${label}"/>`
                 );
                 break;
@@ -109,7 +109,7 @@ export function transformWikiLinks(
                 replaced = replaced.replace(
                   `${wikiLink}`,
                   `<LeafLink href="/${note._id}/${slugify(
-                    note.title.replace('.md', '')
+                    note.title.replace('.md', '').toLowerCase()
                   )}" label="${label}"/>`
                 );
                 break;
@@ -118,7 +118,7 @@ export function transformWikiLinks(
             replaced = replaced.replace(
               `${wikiLink}`,
               `<LeafLink href="/${note._id}/${slugify(
-                note.title.replace('.md', '')
+                note.title.replace('.md', '').toLowerCase()
               )}" label="${label}"/>`
             );
           }

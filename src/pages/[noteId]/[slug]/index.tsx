@@ -260,7 +260,7 @@ export async function getStaticPaths() {
       params: {
         // eslint-disable-next-line no-underscore-dangle
         noteId: note._id.toString(),
-        slug: slugify(title.replace('.md', '')),
+        slug: slugify(title.replace('.md', '').toLowerCase()),
       },
     };
   });
@@ -330,7 +330,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       date: fullNote.created,
       minutes,
       url: `https://${NEXT_PUBLIC_DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
-        title
+        title.toLowerCase()
       )}`,
       atts,
       imageUrl: encodeURI(imageUrl) || null,

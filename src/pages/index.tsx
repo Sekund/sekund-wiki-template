@@ -110,7 +110,7 @@ export const getStaticProps: GetStaticProps = async () => {
       source: mdxSource,
       url: `https://${NEXT_PUBLIC_DECK_DOMAIN}/${fullNote._id.toString()}/${slugify(
         title
-      )}`,
+      ).toLowerCase()}`,
       date: fullNote.created,
       twitterHandle: fullNote.user.twitterHandle || null,
       linkedInPage: fullNote.user.linkedInPage || null,
