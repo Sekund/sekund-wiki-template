@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 
+import { ExclamationIcon } from '@heroicons/react/solid';
 import fm from 'front-matter';
 import { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -208,6 +209,8 @@ export function PostedNote({
                   WiltLink,
                   BrokenLink,
                   ExternalLink,
+                  FeedbackCTA,
+                  ExclamationIcon,
                 }}
               />
             </div>

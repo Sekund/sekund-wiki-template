@@ -10,6 +10,9 @@ import i18nConfig from '@/i18n.config';
 
 type Props = {
   noteId: string;
+  noInvite?: boolean;
+  defaultMessage?: string;
+  buttonLabel?: string;
 };
 
 type IFormInput = {
@@ -19,7 +22,12 @@ type IFormInput = {
   noteId: String;
 };
 
-export default function FeedbackCTA({ noteId }: Props) {
+export default function FeedbackCTA({
+  noteId,
+  defaultMessage,
+  buttonLabel,
+  noInvite,
+}: Props) {
   const { t } = useTranslation(['common'], { i18n: i18nConfig });
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -130,7 +138,7 @@ export default function FeedbackCTA({ noteId }: Props) {
                           rows={4}
                           className="block w-full px-4 py-3 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm"
                           placeholder={t('message')}
-                          defaultValue={''}
+                          defaultValue={defaultMessage || ''}
                         />
                       </div>
                       <div className="flex justify-end space-x-2">
@@ -164,11 +172,13 @@ export default function FeedbackCTA({ noteId }: Props) {
           </div>
         </Dialog>
       </Transition.Root>
-      <div className="sm:rounded-lg max-w-lg mx-auto">
+      <div className="max-w-lg mx-auto sm:rounded-lg">
         <div className="px-4 py-5 sm:p-6">
-          <div className="flex justify-center mt-2 text-gray-500 text">
-            <p className="max-w-xl text-center ">{feedbackInvite}</p>
-          </div>
+          {noInvite ? null : (
+            <div className="flex justify-center mt-2 text-gray-500 text">
+              <p className="max-w-xl text-center ">{feedbackInvite}</p>
+            </div>
+          )}
           <div className="flex justify-center mt-5">
             <button
               onClick={() => openCommentModal()}
@@ -176,7 +186,7 @@ export default function FeedbackCTA({ noteId }: Props) {
               className="inline-flex items-center px-4 py-2 space-x-1 font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:text-sm"
             >
               <ChatIcon className="w-6 h-6" />
-              <span>{t('sendComment')}</span>
+              <span>{buttonLabel || t('sendComment')}</span>
             </button>
           </div>
         </div>
