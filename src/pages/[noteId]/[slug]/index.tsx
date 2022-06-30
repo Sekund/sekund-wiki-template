@@ -229,6 +229,14 @@ export function PostedNote({
       <SocialMetatags />
       <Layout headerSource={headerSource}>
         <div className="flex flex-col">
+          {/** This is only to import some common styles in all pages */}
+          <div className="hidden">
+            <div className="text-lg"></div>
+            <div className="text-sm"></div>
+            <div className="text-xl"></div>
+            <div className="text-2xl"></div>
+            <div className="text-3xl"></div>
+          </div>
           <Content />
           <FeedbackCTA {...{ noteId, title }} />
         </div>

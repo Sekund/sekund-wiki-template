@@ -1,5 +1,6 @@
 import { ClockIcon } from '@heroicons/react/outline';
 import { t } from 'i18next';
+import MarkdownIt from 'markdown-it';
 import { useTranslation } from 'react-i18next';
 import {
   FacebookIcon,
@@ -42,10 +43,11 @@ export default function PostMetadata({
   date,
 }: Props) {
   const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
+  const md = new MarkdownIt();
 
   const ReadingTime = () =>
     minutes ? (
-      <div className="pl-2 inline-flex items-center dark:text-gray-400 text-gray-600 space-x-1">
+      <div className="inline-flex items-center pl-2 space-x-1 text-gray-600 dark:text-gray-400">
         <ClockIcon className="w-4 h-4" />
         <span>{t('readingTime', { val: minutes })}</span>
       </div>
@@ -57,10 +59,10 @@ export default function PostMetadata({
           {title}
         </span>
       </h1>
-      <div className="text-md text-gray-4 dark:text-gray-1 flex items-center space-x-2">
+      <div className="flex items-center space-x-2 text-md text-gray-4 dark:text-gray-1">
         {avatarImage ? (
           <img
-            className="inline-block h-10 w-10 rounded-full"
+            className="inline-block w-10 h-10 rounded-full"
             style={{ margin: 0 }}
             src={avatarImage}
             alt="Avatar Image"
@@ -80,7 +82,7 @@ export default function PostMetadata({
         {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
         {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
         <span>•</span>
-        <time className="dark:text-gray-400 text-gray-600 truncate">
+        <time className="text-gray-600 truncate dark:text-gray-400">
           {new Date(date).toLocaleDateString(i18n.language, {
             month: 'long',
             day: 'numeric',
@@ -88,14 +90,16 @@ export default function PostMetadata({
           })}
         </time>
         {minutes ? (
-          <span className="md:inline-flex hidden items-center">
+          <span className="items-center hidden md:inline-flex">
             <span>•</span>
             <ReadingTime />
           </span>
         ) : null}
       </div>
       <h2 className="sekund-subtitle">
-        <span>{subtitle} </span>
+        <span
+          dangerouslySetInnerHTML={{ __html: md.renderInline(subtitle || '') }}
+        ></span>
       </h2>
       {url ? (
         <div className="flex space-x-1">
