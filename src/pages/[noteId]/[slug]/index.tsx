@@ -96,7 +96,7 @@ export function PostedNote({
               alt={caption}
               style={{ width: '100%' }}
               className="my-0"
-              src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/assets/${image}`}
+              src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/${image}`}
             />
             <div
               className="absolute text-sm italic leading-snug text-white left-4 sm:left-6 lg:left-8 bottom-6 align-left"
@@ -110,7 +110,7 @@ export function PostedNote({
       return (
         <img
           alt={caption}
-          src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/assets/${image}`}
+          src={`https://sekund-sekund-dependencies.s3.amazonaws.com/${userId}/${noteId}/${image}`}
         />
       );
     }
