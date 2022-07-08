@@ -4,6 +4,8 @@
 
 @tailwind utilities;
 
+@import "../../public/assets/fonts/font.css";
+
 @media (max-width: 400px) {
   .icon-link-label {
     max-width: 18ch;

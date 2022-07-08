@@ -6,16 +6,6 @@ class MyDocument extends Document {
     return (
       <Html lang={process.env.NEXT_PUBLIC_LOCALE}>
         <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="1"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Mulish&family=Philosopher&display=swap"
-            rel="stylesheet"
-          />
           <meta charSet="UTF-8" key="charset" />
           <link
             rel="apple-touch-icon"

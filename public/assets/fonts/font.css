@@ -1,0 +1,64 @@
+@font-face {
+	font-family: 'Philosopher';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		/* from https://fonts.gstatic.com/s/philosopher/v19/vEFV2_5QCwIS4_Dhez5jcWBuT00.woff2 */
+		url('Philosopher_400.woff2') format('woff2'),
+		/* from https://fonts.gstatic.com/s/philosopher/v19/vEFV2_5QCwIS4_Dhez5jcWBuT0s.woff */
+		url('Philosopher_400.woff') format('woff'),
+		/* from https://fonts.gstatic.com/s/philosopher/v19/vEFV2_5QCwIS4_Dhez5jcWBuT0k.eot */
+		url('Philosopher_400.eot?#iefix') format('embedded-opentype'),
+		/* from https://fonts.gstatic.com/l/font?kit=vEFV2_5QCwIS4_Dhez5jcWBuT0o&skey=da0a2147adba7eff&v=v19#Philosopher */
+		url('Philosopher_400.svg#Philosopher') format('svg'),
+		/* from https://fonts.gstatic.com/s/philosopher/v19/vEFV2_5QCwIS4_Dhez5jcWBuT0g.ttf */
+		url('Philosopher_400.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Mulish';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptyg83HX_SGhgqO0yLcmjzUAuWexZNR8aevGw.woff2 */
+		url('Mulish_400.woff2') format('woff2'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptyg83HX_SGhgqO0yLcmjzUAuWexZNR8aevHQ.woff */
+		url('Mulish_400.woff') format('woff'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptyg83HX_SGhgqO0yLcmjzUAuWexZNR8aevHw.eot */
+		url('Mulish_400.eot?#iefix') format('embedded-opentype'),
+		/* from https://fonts.gstatic.com/l/font?kit=1Ptyg83HX_SGhgqO0yLcmjzUAuWexZNR8aevHA&skey=9f5b077cc22e75c7&v=v11#Mulish */
+		url('Mulish_400.svg#Mulish') format('svg'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptyg83HX_SGhgqO0yLcmjzUAuWexZNR8aevHg.ttf */
+		url('Mulish_400.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Mulish';
+	font-style: italic;
+	font-weight: 400;
+	src:
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptwg83HX_SGhgqk2hAjQlW_mEuZ0FsSKeOfGZQ6.woff2 */
+		url('Mulish_400italic.woff2') format('woff2'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptwg83HX_SGhgqk2hAjQlW_mEuZ0FsSKeOfGZQ8.woff */
+		url('Mulish_400italic.woff') format('woff'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptwg83HX_SGhgqk2hAjQlW_mEuZ0FsSKeOfGZQ-.eot */
+		url('Mulish_400italic.eot?#iefix') format('embedded-opentype'),
+		/* from https://fonts.gstatic.com/l/font?kit=1Ptwg83HX_SGhgqk2hAjQlW_mEuZ0FsSKeOfGZQ9&skey=12f3c822011b7b1c&v=v11#Mulish */
+		url('Mulish_400italic.svg#Mulish') format('svg'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptwg83HX_SGhgqk2hAjQlW_mEuZ0FsSKeOfGZQ_.ttf */
+		url('Mulish_400italic.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Mulish';
+	font-style: normal;
+	font-weight: 800;
+	src:
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptyg83HX_SGhgqO0yLcmjzUAuWexRNW8aevGw.woff2 */
+		url('Mulish_800.woff2') format('woff2'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptyg83HX_SGhgqO0yLcmjzUAuWexRNW8aevHQ.woff */
+		url('Mulish_800.woff') format('woff'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptyg83HX_SGhgqO0yLcmjzUAuWexRNW8aevHw.eot */
+		url('Mulish_800.eot?#iefix') format('embedded-opentype'),
+		/* from https://fonts.gstatic.com/l/font?kit=1Ptyg83HX_SGhgqO0yLcmjzUAuWexRNW8aevHA&skey=9f5b077cc22e75c7&v=v11#Mulish */
+		url('Mulish_800.svg#Mulish') format('svg'),
+		/* from https://fonts.gstatic.com/s/mulish/v11/1Ptyg83HX_SGhgqO0yLcmjzUAuWexRNW8aevHg.ttf */
+		url('Mulish_800.ttf') format('truetype');
+}
