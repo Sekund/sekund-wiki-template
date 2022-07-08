@@ -257,10 +257,9 @@ function isSekundPublic(domain: string | undefined): boolean {
 export async function getStaticPaths() {
   const { NEXT_PUBLIC_DECK_DOMAIN, GROUP_ID } = process.env;
   const client = await logIn();
-  const notes: Note[] = await client.functions.callFunction(
-    isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) ? 'publicNotes' : 'groupNotes',
-    GROUP_ID
-  );
+  const notes: Note[] = isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN)
+    ? []
+    : await client.functions.callFunction('groupNotes', GROUP_ID);
   const paths = notes.map((note) => {
     const content = fm(note.content);
     let title = note.title.replace('.md', '');
