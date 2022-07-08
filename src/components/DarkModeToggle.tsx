@@ -24,7 +24,7 @@ export default function NightModeToggle({ noLabel, className }: Props) {
   return (
     <div
       className={`${className || ''} flex items-center space-x-2 lg:ml-2 ${
-        noLabel ? '' : 'w-full'
+        noLabel ? '' : ''
       }`}
     >
       <span

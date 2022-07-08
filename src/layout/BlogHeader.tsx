@@ -3,37 +3,53 @@ import { Fragment } from 'react';
 
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { MDXRemote } from 'next-mdx-remote';
 import Link from 'next/link';
+
+import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
+import { TwitterIcon } from '@/components/icons/TwitterIcon';
+import { PostedNoteProps } from '@/components/NoteContents';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-type Props = {
-  headerSource?: MDXRemoteSerializeResult<Record<string, unknown>>;
-};
-
-export default function Header({ headerSource }: Props) {
+export default function BlogHeader({
+  headerSource,
+  avatarImage,
+  userName,
+  personalPage,
+  twitterHandle,
+  linkedInPage,
+}: PostedNoteProps) {
   return (
     <Popover className="sticky top-0 z-10">
       <div className="max-w-6xl mx-auto dark:bg-gray-900 bg-gray-50 sm:px-6">
-        <div className="flex items-center justify-between px-4 py-6 border-b border-gray-200 dark:border-gray-800 md:justify-start md:space-x-10">
-          <div className="flex items-center justify-start space-x-2 lg:w-0 lg:flex-1">
-            <Link href="/">
-              <a>
-                <span className="sr-only">Sekund</span>
-                <img
-                  className="w-auto h-10 sm:h-10"
-                  src="/assets/images/sekund-icon-color.png"
-                  alt="Sekund Collaborative Wiki"
-                />
-              </a>
-            </Link>
-            <div className="text-gray-500">
-              <div>{process.env.NEXT_PUBLIC_TITLE}</div>
-              <div className="text-xs">{process.env.NEXT_PUBLIC_SUB_TITLE}</div>
-            </div>
+        <div className="flex items-center justify-between w-full px-4 py-6 border-b border-gray-200 dark:border-gray-800 md:space-x-10">
+          <div className="flex items-center space-x-2 text-gray-700 text-md dark:text-gray-100">
+            {avatarImage ? (
+              <img
+                className="inline-block w-10 h-10 rounded-full"
+                style={{ margin: 0 }}
+                src={avatarImage}
+                alt="Avatar Image"
+              />
+            ) : null}
+            {userName ? (
+              <div className="overflow-hidden truncate">
+                {personalPage ? (
+                  <a href={personalPage} target="_blank" rel="noreferrer">
+                    {userName}
+                  </a>
+                ) : (
+                  <span>{userName}</span>
+                )}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-100">
+            {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
+            {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
           </div>
           <div className="-my-2 -mr-2 md:hidden">
             <Popover.Button className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md dark:text-gray-500 bg-gray-50 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset dark:bg-gray-900 focus:ring-primary-500">
@@ -41,7 +57,7 @@ export default function Header({ headerSource }: Props) {
               <MenuIcon className="w-6 h-6" aria-hidden="true" />
             </Popover.Button>
           </div>
-          <Popover.Group as="nav" className="hidden space-x-10 md:flex">
+          <Popover.Group as="nav" className="hidden space-x-10">
             <Popover className="relative">
               {({ open }) => (
                 <>

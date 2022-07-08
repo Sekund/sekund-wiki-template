@@ -4,8 +4,6 @@ import React from 'react';
 import { ExclamationIcon } from '@heroicons/react/solid';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { NextSeo } from 'next-seo';
-import DefaultErrorPage from 'next/error';
-import Head from 'next/head';
 import Link from 'next/link';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { duotoneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -17,9 +15,6 @@ import { LeafLink } from '@/components/links/LeafLink';
 import { SeedlingLink } from '@/components/links/SeedlingLink';
 import { SeedLink } from '@/components/links/SeedLink';
 import { WiltLink } from '@/components/links/WiltLink';
-import PostMetadata from '@/components/PostMetadata';
-import SocialMetatags from '@/components/SocialMetatags';
-import Layout from '@/layout/Layout';
 
 export type PostedNoteProps = {
   imageUrl: string;
@@ -41,6 +36,7 @@ export type PostedNoteProps = {
   linkedInPage?: string;
   personalPage?: string;
   notFound?: boolean;
+  children?: React.ReactNode;
 };
 
 type CodeProps = {
@@ -54,19 +50,10 @@ type DependencyProps = {
 export function PostedNote({
   title,
   subtitle,
-  url,
-  twitterHandle,
   source,
-  headerSource,
-  date,
   noteId,
   userId,
-  avatarImage,
-  userName,
-  linkedInPage,
-  personalPage,
-  minutes,
-  notFound,
+  children: header,
 }: PostedNoteProps) {
   const Inclusion = ({ src }: DependencyProps) => {
     if (src.match(/(.)*(.jpg|.jpeg|.gif|.png)/)) {
@@ -129,85 +116,43 @@ export function PostedNote({
     );
   }
 
-  function Content() {
-    return (
-      <>
-        <NextSeo
-          title={title}
-          description={subtitle}
-          openGraph={{
-            title,
-            description: subtitle,
-            locale: process.env.NEXT_PUBLIC_LOCALE,
-            site_name: process.env.NEXT_PUBLIC_SITE_NAME,
-          }}
-        />
-        <div className="py-8 overflow-hidden bg-white-4 dark:bg-gray-4">
-          <div className="sekund-content">
-            <div className="mx-auto prose prose-lg dark:prose-invert max-w-prose sekund-header">
-              <PostMetadata
-                {...{
-                  title,
-                  subtitle,
-                  minutes,
-                  userName,
-                  avatarImage,
-                  date,
-                  url,
-                  twitterHandle,
-                  linkedInPage,
-                  personalPage,
-                }}
-              />
-            </div>
-            <div className="p-0 mx-auto mt-6 prose prose-lg dark:prose-invert dark:prose-dark max-w-prose ">
-              <MDXRemote
-                {...source}
-                components={{
-                  Code,
-                  Inclusion,
-                  Link,
-                  SeedLink,
-                  SeedlingLink,
-                  LeafLink,
-                  WiltLink,
-                  BrokenLink,
-                  ExternalLink,
-                  FeedbackCTA,
-                  ExclamationIcon,
-                }}
-              />
-            </div>
+  return (
+    <>
+      <NextSeo
+        title={title}
+        description={subtitle}
+        openGraph={{
+          title,
+          description: subtitle,
+          locale: process.env.NEXT_PUBLIC_LOCALE,
+          site_name: process.env.NEXT_PUBLIC_SITE_NAME,
+        }}
+      />
+      <div className="py-8 overflow-hidden bg-white-4 dark:bg-gray-4">
+        <div className="sekund-content">
+          <div className="mx-auto prose prose-lg dark:prose-invert max-w-prose sekund-header">
+            {header}
+          </div>
+          <div className="p-0 mx-auto mt-6 prose prose-lg dark:prose-invert dark:prose-dark max-w-prose ">
+            <MDXRemote
+              {...source}
+              components={{
+                Code,
+                Inclusion,
+                Link,
+                SeedLink,
+                SeedlingLink,
+                LeafLink,
+                WiltLink,
+                BrokenLink,
+                ExternalLink,
+                FeedbackCTA,
+                ExclamationIcon,
+              }}
+            />
           </div>
         </div>
-      </>
-    );
-  }
-
-  return notFound ? (
-    <>
-      <Head>
-        <meta name="robots" content="noindex" />
-      </Head>
-      <DefaultErrorPage statusCode={404} />
-    </>
-  ) : (
-    <>
-      <SocialMetatags />
-      <Layout headerSource={headerSource}>
-        <div className="flex flex-col">
-          {/** This is only to import some common styles in all pages */}
-          <div className="hidden">
-            <div className="text-lg"></div>
-            <div className="text-sm"></div>
-            <div className="text-xl"></div>
-            <div className="text-2xl"></div>
-            <div className="text-3xl"></div>
-          </div>
-          <Content />
-          <FeedbackCTA {...{ noteId, title }} />
-        </div>
-      </Layout>
+      </div>
     </>
   );
 }

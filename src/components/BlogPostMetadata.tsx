@@ -13,16 +13,9 @@ import {
   TwitterShareButton,
 } from 'react-share';
 
-import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
-import { TwitterIcon } from '@/components/icons/TwitterIcon';
 import i18nConfig from '@/i18n.config';
 
 type Props = {
-  avatarImage?: string;
-  userName?: string;
-  twitterHandle?: string;
-  linkedInPage?: string;
-  personalPage?: string;
   title: string;
   subtitle?: string;
   minutes?: number;
@@ -31,11 +24,6 @@ type Props = {
 };
 
 export default function PostMetadata({
-  avatarImage,
-  userName,
-  twitterHandle,
-  linkedInPage,
-  personalPage,
   title,
   subtitle,
   minutes,
@@ -52,6 +40,7 @@ export default function PostMetadata({
         <span>{t('readingTime', { val: minutes })}</span>
       </div>
     ) : null;
+
   return (
     <div className="block mb-8">
       <h1 className="mb-4">
@@ -60,28 +49,6 @@ export default function PostMetadata({
         </span>
       </h1>
       <div className="flex items-center space-x-2 text-md text-gray-4 dark:text-gray-1">
-        {avatarImage ? (
-          <img
-            className="inline-block w-10 h-10 rounded-full"
-            style={{ margin: 0 }}
-            src={avatarImage}
-            alt="Avatar Image"
-          />
-        ) : null}
-        {userName ? (
-          <div className="overflow-hidden truncate">
-            {personalPage ? (
-              <a href={personalPage} target="_blank" rel="noreferrer">
-                {userName}
-              </a>
-            ) : (
-              <span>{userName}</span>
-            )}
-          </div>
-        ) : null}
-        {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
-        {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
-        <span>•</span>
         <time className="text-gray-600 truncate dark:text-gray-400">
           {new Date(date).toLocaleDateString(i18n.language, {
             month: 'long',

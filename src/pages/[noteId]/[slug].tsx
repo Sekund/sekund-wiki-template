@@ -13,9 +13,10 @@ import { transformInclusions, transformLinks } from '@/common/markdown-utils';
 import { getHeaderSource, logIn } from '@/common/utils';
 import FeedbackCTA from '@/components/FeedbackCTA';
 import NoteContents, { PostedNoteProps } from '@/components/NoteContents';
+import PostMetadata from '@/components/PostMetadata';
 import SocialMetatags from '@/components/SocialMetatags';
 import { Note } from '@/domain/Note';
-import Layout from '@/layout/BlogLayout';
+import Layout from '@/layout/Layout';
 
 export default function PastPost(props: PostedNoteProps) {
   return props.notFound ? (
@@ -45,7 +46,22 @@ export default function PastPost(props: PostedNoteProps) {
             <div className="text-2xl"></div>
             <div className="text-3xl"></div>
           </div>
-          <NoteContents {...props} />
+          <NoteContents {...props}>
+            <PostMetadata
+              {...{
+                title: props.title,
+                subtitle: props.subtitle,
+                minutes: props.minutes,
+                userName: props.userName,
+                avatarImage: props.avatarImage,
+                date: props.date,
+                url: props.url,
+                twitterHandle: props.twitterHandle,
+                linkedInPage: props.linkedInPage,
+                personalPage: props.personalPage,
+              }}
+            />
+          </NoteContents>
           <FeedbackCTA {...{ noteId: props.noteId, title: props.title }} />
         </div>
       </Layout>
