@@ -50,3 +50,25 @@ export async function getHeaderSource(client: Realm.User, notes: Note[]) {
   }
   return headerSource;
 }
+
+export function recursivelyConvertObjectIdsToStrings(obj: any): any {
+  const result: any = {};
+  if (obj instanceof Array) {
+    return (obj as Array<any>).map((ao) =>
+      recursivelyConvertObjectIdsToStrings(ao)
+    );
+  }
+  (Object.keys(obj) as (keyof typeof obj)[]).forEach((key) => {
+    if (typeof obj[key] === 'object') {
+      if (obj[key].toHexString !== undefined) {
+        result[key] = obj[key].toString();
+      } else {
+        result[key] = recursivelyConvertObjectIdsToStrings(obj[key]);
+      }
+    } else {
+      result[key] = obj[key];
+    }
+  });
+
+  return result;
+}

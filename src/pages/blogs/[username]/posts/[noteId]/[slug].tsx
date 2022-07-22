@@ -99,7 +99,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (
     !fullNote ||
-    (isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) && !fullNote.hasPublicLink)
+    (isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) && !fullNote.isPublished)
   ) {
     return {
       props: {

@@ -5,6 +5,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { MDXRemote } from 'next-mdx-remote';
 import Link from 'next/link';
+import slugify from 'slugify';
 
 import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
 import { TwitterIcon } from '@/components/icons/TwitterIcon';
@@ -18,7 +19,7 @@ export default function BlogHeader({
   headerSource,
   avatarImage,
   userName,
-  personalPage,
+  userId,
   twitterHandle,
   linkedInPage,
 }: PostedNoteProps) {
@@ -26,27 +27,23 @@ export default function BlogHeader({
     <Popover className="sticky top-0 z-10">
       <div className="max-w-6xl mx-auto dark:bg-gray-900 bg-gray-50 sm:px-6">
         <div className="flex items-center justify-between w-full px-4 py-6 border-b border-gray-200 dark:border-gray-800 md:space-x-10">
-          <div className="flex items-center space-x-2 text-gray-700 text-md dark:text-gray-100">
-            {avatarImage ? (
-              <img
-                className="inline-block w-10 h-10 rounded-full"
-                style={{ margin: 0 }}
-                src={avatarImage}
-                alt="Avatar Image"
-              />
-            ) : null}
-            {userName ? (
-              <div className="overflow-hidden truncate">
-                {personalPage ? (
-                  <a href={personalPage} target="_blank" rel="noreferrer">
-                    {userName}
-                  </a>
-                ) : (
+          <Link href={`/blogs/${userName ? slugify(userName) : userId}`}>
+            <a className="flex items-center space-x-2 text-gray-700 text-md dark:text-gray-100">
+              {avatarImage ? (
+                <img
+                  className="inline-block w-10 h-10 rounded-full"
+                  style={{ margin: 0 }}
+                  src={avatarImage}
+                  alt="Avatar Image"
+                />
+              ) : null}
+              {userName ? (
+                <div className="overflow-hidden truncate">
                   <span>{userName}</span>
-                )}
-              </div>
-            ) : null}
-          </div>
+                </div>
+              ) : null}
+            </a>
+          </Link>
           <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-100">
             {twitterHandle ? <TwitterIcon handle={twitterHandle} /> : null}
             {linkedInPage ? <LinkedInIcon href={linkedInPage} /> : null}
