@@ -2,12 +2,16 @@
 import fm from 'front-matter';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import readingTime from 'reading-time';
 import slugify from 'slugify';
 
 import { logIn, recursivelyConvertObjectIdsToStrings } from '@/common/utils';
+import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
+import { TwitterIcon } from '@/components/icons/TwitterIcon';
 import SocialMetatags from '@/components/SocialMetatags';
 import { Note } from '@/domain/Note';
+import i18nConfig from '@/i18n.config';
 import BlogFooter from '@/layout/BlogFooter';
 
 type Props = {
@@ -25,10 +29,13 @@ type Props = {
     avatarImageUrl: string;
     description: string;
     minutes: string;
+    date: number;
   }[];
 };
 
 export default function BlogIndex({ posts, user }: Props) {
+  const { i18n } = useTranslation(['common'], { i18n: i18nConfig });
+
   function Contents() {
     return (
       <div className="relative px-4 pt-16 pb-20 text-gray-700 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8 text-md dark:text-gray-100">
@@ -47,6 +54,14 @@ export default function BlogIndex({ posts, user }: Props) {
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
               {user.name}
             </h2>
+            <div className="flex items-center justify-center space-x-2 text-gray-700 dark:text-gray-100">
+              {user.twitterHandle ? (
+                <TwitterIcon handle={user.twitterHandle} />
+              ) : null}
+              {user.linkedInPage ? (
+                <LinkedInIcon href={user.linkedInPage} />
+              ) : null}
+            </div>
             <p className="max-w-2xl mx-auto mt-3 text-xl sm:mt-4 ">
               {user.bio}
             </p>
@@ -73,6 +88,16 @@ export default function BlogIndex({ posts, user }: Props) {
                     <Link href={post.href}>
                       <a className="block mt-2">
                         <p className="text-xl font-semibold">{post.title}</p>
+                        <p className="text-base">
+                          {new Date(post.date).toLocaleDateString(
+                            i18n.language,
+                            {
+                              month: 'long',
+                              day: 'numeric',
+                              year: '2-digit',
+                            }
+                          )}
+                        </p>
                         <p className="mt-3 text-base text-gray-600 text-md dark:text-gray-400">
                           {post.description}
                         </p>
@@ -145,6 +170,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const readingStats = readingTime(content.body);
         const minutes = Math.round(readingStats.minutes);
         let title = fullNote.title.replace('.md', '');
+        const date = fullNote.created;
         const atts = content.attributes as any;
         if (atts.title) {
           title = atts.title;
@@ -159,6 +185,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           href: `/blogs/${username}/posts/${fullNote._id.toString()}/${slugify(
             title
           )}`,
+          date,
           subtitle: subtitle || '',
           imageUrl: imageUrl || '',
           description: description || 'description',
