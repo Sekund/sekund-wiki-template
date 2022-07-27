@@ -73,6 +73,7 @@ export async function getStaticPaths() {
   const notes: Note[] = isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN)
     ? []
     : await client.functions.callFunction('groupNotes', GROUP_ID);
+  console.log('group notes', notes);
   const paths = notes.map((note) => {
     const content = fm(note.content);
     let noteTitle = note.title.replace('.md', '').toLowerCase();
