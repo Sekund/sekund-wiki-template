@@ -101,7 +101,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { noteId } = params as unknown as any;
   const client = await logIn();
 
-  const fullNote = await client.functions.callFunction('getNote', noteId);
+  const fullNote: Note = await client.functions.callFunction('getNote', noteId);
 
   if (
     !fullNote ||
@@ -124,9 +124,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (atts.title) {
     title = atts.title;
   }
-  const { subtitle } = atts;
+  const { subtitle } = fullNote || '';
 
-  const { imageUrl, description } = atts;
+  const { coverImage, description } = fullNote;
   const { body } = content;
   const notes: Note[] = await client.functions.callFunction(
     isSekundPublic(NEXT_PUBLIC_DECK_DOMAIN) ? 'publicNotes' : 'groupNotes',
@@ -162,7 +162,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         title.toLowerCase()
       )}`,
       atts,
-      imageUrl: encodeURI(imageUrl) || null,
+      imageUrl: coverImage ? encodeURI(coverImage) : null,
       description: description || null,
       twitterHandle: fullNote.user.twitterHandle || null,
       linkedInPage: fullNote.user.linkedInPage || null,

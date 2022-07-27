@@ -1,6 +1,6 @@
-import ObjectID from "bson-objectid";
+import ObjectID from 'bson-objectid';
 
-export type PeopleId = Pick<People, "name" | "image" | "email" | "_id">;
+export type PeopleId = Pick<People, 'name' | 'image' | 'email' | '_id'>;
 
 export interface People {
   _id: ObjectID;
@@ -10,8 +10,12 @@ export interface People {
   name?: string;
   image?: string;
   bio?: string;
-  sharing: number;
-  shared: number;
-  unreadSharing: number;
-  unreadShared: number;
+  twitterHandle?: string;
+  linkedInPage?: string;
+  personalPage?: string;
+  sharing?: number;
+  shared?: number;
+  unreadSharing?: number;
+  unreadShared?: number;
+  consentedToTrackBehaviouralDataInOrderToImproveTheProduct: boolean;
 }

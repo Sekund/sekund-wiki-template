@@ -11,17 +11,12 @@ import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
 import { TwitterIcon } from '@/components/icons/TwitterIcon';
 import SocialMetatags from '@/components/SocialMetatags';
 import { Note } from '@/domain/Note';
+import { People } from '@/domain/People';
 import i18nConfig from '@/i18n.config';
 import BlogFooter from '@/layout/BlogFooter';
 
 type Props = {
-  user: {
-    image: string;
-    name: string;
-    bio?: string;
-    twitterHandle?: string;
-    linkedInPage?: string;
-  };
+  user: People;
   posts: {
     imageUrl: string;
     title: string;
@@ -116,12 +111,12 @@ export default function BlogIndex({ posts, user }: Props) {
   return (
     <>
       <SocialMetatags
-        title={`Candide Kemmler's Blog`}
-        description={`Candide Kemmler's Blog`}
-        imageUrl={``}
-        url={``}
-        userName={``}
-        twitterHandle={``}
+        title={`${user.name}'s Blog`}
+        description={`${user.name}'s Blog`}
+        imageUrl={`${user.image}`}
+        url={`${user.personalPage}`}
+        userName={`${user.name}`}
+        twitterHandle={`https://www.twitter.com/${user.twitterHandle}`}
       />
       <div className="flex bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col w-full" style={{ minHeight: '100vh' }}>
@@ -175,9 +170,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         if (atts.title) {
           title = atts.title;
         }
-        const { subtitle } = atts;
+        const { subtitle } = fullNote;
 
-        const { imageUrl, description } = atts;
+        const { coverImage, description } = fullNote;
         return {
           ...fullNote,
           _id: fullNote._id.toString(),
@@ -187,7 +182,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           )}`,
           date,
           subtitle: subtitle || '',
-          imageUrl: imageUrl || '',
+          imageUrl: coverImage || '',
           description: description || 'description',
           minutes,
           title,
