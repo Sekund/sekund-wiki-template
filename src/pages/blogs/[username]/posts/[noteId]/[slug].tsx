@@ -83,6 +83,7 @@ export async function getStaticPaths() {
       params: {
         // eslint-disable-next-line no-underscore-dangle
         noteId: note._id.toString(),
+        username: note.user.name || 'anonymous-coward',
         slug: slugify(noteTitle),
       },
     };
